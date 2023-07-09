@@ -1,0 +1,27 @@
+<body id="bodyLogueo">
+    <form action="/login" method="POST" id = "loguearse" class="container-sm">
+    <div class="mb-3 form-group">
+        <h2 id="Login">Login</h2>
+    </div>
+    <div class="mb-3 form-group">
+        <label for="usuarioId" class="form-label" id = "cartelUsuario">Usuario</label>
+        <input type="text" class="form-control" id="usuarioId" name="nom_usuario" value="" placeholder="Ingrese un nombre de usuario">
+    </div>
+    <div class="mb-3 form-group">
+        <label for="passwordId" class="form-label" id = "cartelContraseña">Contraseña</label>
+        <input type="password" class="form-control" id="passwordId" name="contraseña" value="" placeholder="Contraseña">
+    </div>
+    <div class="mb-3 form-check">
+        <input type="button" class="btn btn-primary" id="botonLogin" value="INGRESAR" onclick="login();">
+    </div>
+</form>
+<form action="/registrarse" method="GET" class="container-sm">
+    <div class="mb-3 form-check">
+        <input type="submit" class="btn btn-primary" id="botonRegistro" value="REGISTRO">
+    </div>
+</form>
+<form action="/Admin" method="POST" id = "administrador" class="container-sm">
+
+</form>
+</body>
+

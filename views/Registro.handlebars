@@ -1,0 +1,23 @@
+<body id="registro">
+    <form action="/nuevousuario" method="POST" class="container-sm">
+        <div class="mb-3 form-group">
+            <h2 id="titleRegistrar">Registrarse</h2>
+            <h3 id="mensaje">{{mensaje}}</h3>
+        </div>
+        <div class="mb-3 form-group">
+            <label for="mailId" class="form-label" id = "cartelMail">Ingrese su mail</label>
+            <input type="text" class="form-control" id="mailId" name="mail" placeholder="Ingrese su mail">
+        </div>
+        <div class="mb-3 form-group">
+            <label for="usuarioId" class="form-label" id = "cartelUser">Ingrese el usuario</label>
+            <input type="text" class="form-control" id="usuarioId" name="nom_usuario" value="" placeholder="Ingrese un nombre de usuario">
+        </div>
+        <div class="mb-3 form-group">
+            <label for="passwordId" class="form-label" id = "cartelContra">Ingrese la contraseña</label>
+            <input type="password" class="form-control" id="passwordId" name="contraseña" placeholder="Contraseña">
+        </div>
+        <div class="mb-3 form-check">
+            <input type="submit" class="btn btn-primary" id = "botonTerminarRegistro" value="Registrarse">
+        </div>
+    </form>
+</body>
