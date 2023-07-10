@@ -50,10 +50,10 @@ function login() {
 async function mostrar() {
     for (let i in vector){
       document.getElementById("seleccion").innerHTML= `
-      <select name="select">
-      <option value="value1" selected> Elegir Palabra</option>
-      <option>${[i]}</option>
-  </select>
+        <select name="select">
+          <option value="value1" selected> Elegir Palabra</option>
+          <option>${[i]}</option>
+        </select>
       `;
     }
 }
