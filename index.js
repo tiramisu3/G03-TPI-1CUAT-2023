@@ -76,6 +76,15 @@ app.post('/login', async function(req, res)
 app.post('/Admin', async function(req, res){
     console.log("Soy un pedido POST", req.query);
     res.render('Admin', null);
+    console.log("Soy un pedido PUT", req.body); //En req.body vamos a obtener el objeto con los parámetros enviados desde el frontend por método PUT
+    let vector = [await MySQL.realizarQuery(` SELECT * FROM Palabras `)]
+    console.log(vector)
+    if (vector.length > 0) {
+        res.send({palabra: true})    
+    }
+    else{
+        res.send({palabra:false})    
+    }
 });
 
 app.put('/login', async function(req, res) {
@@ -138,3 +147,6 @@ app.post('/nuevousuario', async function(req, res)
     
     //res.render('home', null); //Renderizo página "home" sin pasar ningún objeto a Handlebars
 });
+app.post('/home', async function(req, res){
+    
+})
