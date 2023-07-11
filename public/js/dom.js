@@ -57,3 +57,16 @@ async function mostrar() {
       `;
     }
 }
+
+function ganaste(){
+  document.getElementById("botonComprobar").innerHTML += `        
+        <div class="border" id="winner ${id}">
+          <img src="img/fuegos.gif" id="imageFuegos">
+          <img src="img/victory.png" id="imageFuegos">
+        </div>
+        <br>`;
+}
+
+function comprobar(){
+  
+}
