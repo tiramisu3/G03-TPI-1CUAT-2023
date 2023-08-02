@@ -76,15 +76,16 @@ app.post('/login', async function(req, res)
 app.post('/Admin', async function(req, res){
     console.log("Soy un pedido POST", req.query);
     res.render('Admin', null);
+    /*
     console.log("Soy un pedido PUT", req.body); //En req.body vamos a obtener el objeto con los parámetros enviados desde el frontend por método PUT
     let vector = [await MySQL.realizarQuery(` SELECT * FROM Palabras `)]
     console.log(vector)
     if (vector.length > 0) {
-        res.send({palabra: true})    
+        res.send({palabra: vector})    
     }
     else{
         res.send({palabra:false})    
-    }
+    }*/
 });
 
 app.put('/login', async function(req, res) {
@@ -106,10 +107,10 @@ app.put('/Admin', async function(req, res) {
     let vector = [await MySQL.realizarQuery(` SELECT * FROM Palabras `)]
     console.log(vector)
     if (vector.length > 0) {
-        res.send({palabra: true})    
+        res.send({palabras: vector})    
     }
     else{
-        res.send({palabra:false})    
+        res.send({palabras:false})    
     }
 });
 
@@ -151,6 +152,7 @@ app.post('/home', async function(req, res){
     
 })
 
+rama---Fausto
 app.post('/home', async function(req, res){
     console.log("Soy un pedido POST", req.body);
     let palabra= await MySQL.realizarQuery("SELECT palabras FROM Palabras")
@@ -195,3 +197,4 @@ app.post('/home', async function(req, res){
         
     }
 });
+main
