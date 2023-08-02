@@ -72,6 +72,7 @@ async function mostrar() {
         
       `;
     }
+ rama---Fausto
     html += `</select>`;
     document.getElementById("seleccion").innerHTML = html;
     
@@ -82,6 +83,18 @@ async function mostrar() {
   }
 }
 
-function borrar(){
-  document.getElementById().
+
+
+function ganaste(){
+  document.getElementById("botonComprobar").innerHTML += `        
+        <div class="border" id="winner ${id}">
+          <img src="img/fuegos.gif" id="imageFuegos">
+          <img src="img/victory.png" id="imageFuegos">
+        </div>
+        <br>`;
+}
+
+function comprobar(){
+  
+ main
 }
