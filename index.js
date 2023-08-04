@@ -76,15 +76,16 @@ app.post('/login', async function(req, res)
 app.post('/Admin', async function(req, res){
     console.log("Soy un pedido POST", req.query);
     res.render('Admin', null);
+    /*
     console.log("Soy un pedido PUT", req.body); //En req.body vamos a obtener el objeto con los parámetros enviados desde el frontend por método PUT
     let vector = [await MySQL.realizarQuery(` SELECT * FROM Palabras `)]
     console.log(vector)
     if (vector.length > 0) {
-        res.send({palabra: true})    
+        res.send({palabra: vector})    
     }
     else{
         res.send({palabra:false})    
-    }
+    }*/
 });
 
 app.put('/login', async function(req, res) {
@@ -106,10 +107,10 @@ app.put('/Admin', async function(req, res) {
     let vector = [await MySQL.realizarQuery(` SELECT * FROM Palabras `)]
     console.log(vector)
     if (vector.length > 0) {
-        res.send({palabra: true})    
+        res.send({palabras: vector})    
     }
     else{
-        res.send({palabra:false})    
+        res.send({palabras:false})    
     }
 });
 
@@ -160,3 +161,20 @@ app.post('/randomWord', async function(req, res){
     res.send({word: palabraAleatoria})
 
 });
+
+app.put('/eliminar', async function(req, res)
+{
+    let validar = true
+    //Petición POST con URL = "/login"
+    console.log("Soy un pedido POST", req.body); 
+    let palabras= await MySQL.realizarQuery("SELECT * FROM Palabras")
+    for (let i in palabras){
+        if (palabras[i].palabras == req.body.pregunta){
+            validar = false
+            await MySQL.realizarQuery (`DELETE FROM Palabras VALUES("${req.body.pregunta}",${false})`)    
+
+        }
+    }
+    
+});
+

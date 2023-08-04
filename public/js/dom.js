@@ -48,14 +48,42 @@ function login() {
 }
 
 async function mostrar() {
+  try {
+    const response = await fetch("/Admin", {
+      method: "PUT", // or 'POST'
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({validar: true}),
+    });
+    
+    //En result obtengo la respuesta
+    const result = await response.json();
+    console.log("Success:", result);
+    let vector = result.palabras[0]
+    console.log("Success:", vector);
+    let html = `
+        <select name="select" id="word">
+          <option value="value1" selected> Elegir Palabra</option>`
     for (let i in vector){
-      document.getElementById("seleccion").innerHTML= `
-        <select name="select">
-          <option value="value1" selected> Elegir Palabra</option>
-          <option>${[i]}</option>
-        </select>
+      html+=
+      `
+          <option>${vector[i].palabras}</option>
+        
       `;
     }
+    html += `</select>`;
+    document.getElementById("seleccion").innerHTML = html;
+    
+  }
+    catch (error) {
+      console.error("Error:", error);
+    
+  }
+}
+
+async function borrar(){
+  
 }
 
 function ganaste(){
@@ -124,4 +152,29 @@ function comprobar(){
       ganaste()
       alert("Correcto")
     }
+
+}
+function borrar(){
+  palabra= document.getElementById("word")
+  let data = {
+    pregunta: palabra
+}
+
+eliminar(data)
+}
+async function eliminar(data) {
+  //putJSON() es solo el nombre de esta funcion que lo pueden cambiar    
+
+  try {
+    const response = await fetch("/eliminar", {
+      method: "PUT", // or 'POST'
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    
+  } catch (error) {
+    console.error("Error:", error);
+  }
 }
