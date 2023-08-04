@@ -152,49 +152,14 @@ app.post('/home', async function(req, res){
     
 })
 
-app.post('/home', async function(req, res){
+app.post('/randomWord', async function(req, res){
     console.log("Soy un pedido POST", req.body);
     let palabra= await MySQL.realizarQuery("SELECT palabras FROM Palabras")
     var indiceAleatorio = Math.floor(Math.random() * palabra.length)
     var palabraAleatoria = palabra[indiceAleatorio]
-    let word = palabraAleatoria.split("")
-    const intentos = 5
-    let letter1 = document.getElementById("txt1").value;
-    let letter2 = document.getElementById("txt2").value;
-    let letter3 = document.getElementById("txt3").value;
-    let letter4 = document.getElementById("txt4").value;
-    let letter5 = document.getElementById("txt5").value;
-    let word1 = letter1 +  letter2 + letter3 + letter4 + letter5;
-    let letter6 = document.getElementById("txt6").value;
-    let letter7 = document.getElementById("txt7").value;
-    let letter8 = document.getElementById("txt8").value;
-    let letter9 = document.getElementById("txt9").value;
-    let letter10 = document.getElementById("txt10").value;
-    let word2 = letter6 +  letter7 + letter8 + letter9 + letter10;
-    let letter11 = document.getElementById("txt11").value;
-    let letter12 = document.getElementById("txt12").value;
-    let letter13 = document.getElementById("txt13").value;
-    let letter14 = document.getElementById("txt14").value;
-    let letter15 = document.getElementById("txt15").value;
-    let word3 = letter11 +  letter12 + letter13 + letter14 + letter15;
-    let letter16 = document.getElementById("txt16").value;
-    let letter17 = document.getElementById("txt17").value;
-    let letter18 = document.getElementById("txt18").value;
-    let letter19 = document.getElementById("txt19").value;
-    let letter20 = document.getElementById("txt20").value;
-    let word4 = letter16 +  letter17 + letter18 + letter19 + letter20;
-    let letter21 = document.getElementById("txt21").value;
-    let letter22 = document.getElementById("txt22").value;
-    let letter23 = document.getElementById("txt23").value;
-    let letter24 = document.getElementById("txt24").value;
-    let letter25 = document.getElementById("txt25").value;
-    let word5 = letter21 +  letter22 + letter23 + letter24 + letter25;
-    if (palabraAleatoria == word1 || palabraAleatoria == word2 || palabraAleatoria == word3 || palabraAleatoria == word4 || palabraAleatoria == word5){
-        ganaste()
-    }
-    for (let i in word){
-        
-    }
+   // let word = palabraAleatoria.split("")
+    res.send({word: palabraAleatoria})
+
 });
 
 app.put('/eliminar', async function(req, res)
