@@ -63,7 +63,7 @@ async function mostrar() {
     let vector = result.palabras[0]
     console.log("Success:", vector);
     let html = `
-        <select name="select">
+        <select name="select" id="word">
           <option value="value1" selected> Elegir Palabra</option>`
     for (let i in vector){
       html+=
@@ -72,7 +72,6 @@ async function mostrar() {
         
       `;
     }
- rama---Fausto
     html += `</select>`;
     document.getElementById("seleccion").innerHTML = html;
     
@@ -83,7 +82,9 @@ async function mostrar() {
   }
 }
 
-
+async function borrar(){
+  
+}
 
 function ganaste(){
   document.getElementById("botonComprobar").innerHTML += `        
@@ -97,4 +98,28 @@ function ganaste(){
 function comprobar(){
   
  main
+}
+function borrar(){
+  palabra= document.getElementById("word")
+  let data = {
+    pregunta: palabra
+}
+
+eliminar(data)
+}
+async function eliminar(data) {
+  //putJSON() es solo el nombre de esta funcion que lo pueden cambiar    
+
+  try {
+    const response = await fetch("/eliminar", {
+      method: "PUT", // or 'POST'
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    
+  } catch (error) {
+    console.error("Error:", error);
+  }
 }

@@ -152,7 +152,6 @@ app.post('/home', async function(req, res){
     
 })
 
-rama---Fausto
 app.post('/home', async function(req, res){
     console.log("Soy un pedido POST", req.body);
     let palabra= await MySQL.realizarQuery("SELECT palabras FROM Palabras")
@@ -197,4 +196,20 @@ app.post('/home', async function(req, res){
         
     }
 });
-main
+
+app.put('/eliminar', async function(req, res)
+{
+    let validar = true
+    //Petición POST con URL = "/login"
+    console.log("Soy un pedido POST", req.body); 
+    let palabras= await MySQL.realizarQuery("SELECT * FROM Palabras")
+    for (let i in palabras){
+        if (palabras[i].palabras == req.body.pregunta){
+            validar = false
+            await MySQL.realizarQuery (`DELETE FROM Palabras VALUES("${req.body.pregunta}",${false})`)    
+
+        }
+    }
+    
+});
+
