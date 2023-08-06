@@ -14,8 +14,11 @@
         <br>
 
         <div>
-            <input type="submit" class="btn btn-primary" id = "botonAgregar" value="Agregar">
-            <input type="submit" class="btn btn-primary" id = "botonModificar" value="Modificar">
+            <div class="mb-3 form-group">
+            <input type="text" class="form-control" id="nuevaPalabra" name="agregarPalabra" value="" placeholder="Ingrese la palabra">
+            <input type="submit" class="btn btn-primary" id = "botonAgregar" value="Agregar" onclick="agregar()">
+        </div>
+        <div>
             <input type="submit" class="btn btn-primary" id = "botonEliminar" value="Eliminar" onclick="borrar()">
         </div>
         <br>

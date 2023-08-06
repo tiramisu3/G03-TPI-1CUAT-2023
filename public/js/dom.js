@@ -173,8 +173,47 @@ async function eliminar(data) {
       },
       body: JSON.stringify(data),
     });
-    
-  } catch (error) {
+    const result = await response.json();
+    console.log("Success:", result);
+
+    if (result.validar == false) {
+      alert("No se pudo borrar la palabra")
+    }
+    else {
+     console.log("Palabra borrada")
+  } 
+}
+  catch (error) {
+    console.error("Error:", error);
+  }
+}
+function agregar(){
+  let palabra = document.getElementById("nuevaPalabra").value
+  let data = palabra
+
+  nuevaPalabra(data)
+}
+
+async function nuevaPalabra(data){
+  try {
+    const response = await fetch("/agregar", {
+      method: "PUT", // or 'POST'
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    const result = await response.json();
+    console.log("Success:", result);
+
+    if (result.validar == false) {
+      alert("No se pudo agregar la palabra")
+    }
+    else {
+     console.log("Palabra agregada")
+  } 
+}
+  catch (error) {
     console.error("Error:", error);
   }
 }

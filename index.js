@@ -162,8 +162,7 @@ app.post('/randomWord', async function(req, res){
 
 });
 
-app.put('/eliminar', async function(req, res)
-{
+app.put('/eliminar', async function(req, res){
     let validar = true
     //Petición POST con URL = "/login"
     console.log("Soy un pedido POST", req.body); 
@@ -171,10 +170,33 @@ app.put('/eliminar', async function(req, res)
     for (let i in palabras){
         if (palabras[i].palabras == req.body.pregunta){
             validar = false
-            await MySQL.realizarQuery (`DELETE FROM Palabras VALUES("${req.body.pregunta}",${false})`)    
+            respuesta = await MySQL.realizarQuery (`DELETE FROM Palabras VALUES("${req.body.pregunta}",${false})`)
+            if (respuesta.length > 0) {
+                res.send({validar: true})    
+            }
+            else{
+                res.send({validar:false})    
+            }    
 
         }
     }
     
 });
 
+app.put('/agregar'), async function(req, res){
+    let validar = true
+    console.log("Soy un pedido POST", req.body);
+    let palabras= await MySQL.realizarQuery("SELECT * FROM Palabras")
+    for (let i in palabras){
+        if (palabras[i].palabras == req.body.pregunta){
+            validar = false
+            res.send({validar: false})
+        }
+        if (validar = true){
+            sumar = await MySQL.realizarQuery (`INSERT INTO Palabras VALUES("${req.body.palabras}", ${false})`)    
+            
+            res.send({validar: true}) 
+
+        }
+    }
+}
