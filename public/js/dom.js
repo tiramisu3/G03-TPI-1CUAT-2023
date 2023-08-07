@@ -159,11 +159,10 @@ function comprobar(){
 
 }
 function borrar(){
-  palabra= document.getElementById("word")
+  palabra= document.getElementById("word").value
   let data = {
     pregunta: palabra
-}
-
+  }
 eliminar(data)
 }
 async function eliminar(data) {
@@ -178,7 +177,7 @@ async function eliminar(data) {
       body: JSON.stringify(data),
     });
     const result = await response.json();
-    console.log("Success:", result);
+    console.log("borrar ok ", result);
 
     if (result.validar == false) {
       alert("No se pudo borrar la palabra")
@@ -193,6 +192,7 @@ async function eliminar(data) {
 }
 function agregar(){
   let palabra = document.getElementById("nuevaPalabra").value
+  console.log(palabra)
   let data = palabra
 
   nuevaPalabra(data)
@@ -208,7 +208,7 @@ async function nuevaPalabra(data){
       body: JSON.stringify(data),
     });
     const result = await response.json();
-    console.log("Success:", result);
+    console.log("Success palabra:", result);
 
     if (result.validar == false) {
       alert("No se pudo agregar la palabra")
