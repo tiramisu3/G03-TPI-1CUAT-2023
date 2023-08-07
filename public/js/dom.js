@@ -87,14 +87,14 @@ async function borrar(){
 }
 
 function ganaste(){
-  document.getElementById("botonComprobar").innerHTML += `        
+  document.getElementById("Comprobar").innerHTML += `        
         <div class="border" id="winner ${id}">
           <img src="img/fuegos.gif" id="imageFuegos">
           <img src="img/victory.png" id="imageFuegos">
         </div>
         <br>`;
 }
-let palabraAleatoria = ""
+let palabraalea={}
 async function palabra_elegida(){
   
   try {
@@ -110,8 +110,8 @@ async function palabra_elegida(){
     const result = await response.json();
     console.log("Success:", result);
 
-    palabraAleatoria = result.palabraAleatoria
-    console.log(palabraAleatoria)
+    palabraalea = result.word.palabras; 
+    console.log(palabraalea)
   } catch (error) {
     console.error("Error:", error);
   }
@@ -123,7 +123,7 @@ function comprobar(){
     let letter3 = document.getElementById("txt3").value;
     let letter4 = document.getElementById("txt4").value;
     let letter5 = document.getElementById("txt5").value;
-    let word1 = letter1 +  letter2 + letter3 + letter4 + letter5;
+    let word1 = (letter1 +  letter2 + letter3 + letter4 + letter5).toUpperCase();
     let letter6 = document.getElementById("txt6").value;
     let letter7 = document.getElementById("txt7").value;
     let letter8 = document.getElementById("txt8").value;
@@ -148,9 +148,13 @@ function comprobar(){
     let letter24 = document.getElementById("txt24").value;
     let letter25 = document.getElementById("txt25").value;
     let word5 = letter21 +  letter22 + letter23 + letter24 + letter25;
-    if (palabraAleatoria == word1 || palabraAleatoria == word2 || palabraAleatoria == word3 || palabraAleatoria == word4 || palabraAleatoria == word5){
+    console.log(palabraalea)
+    console.log(word1)
+    if (palabraalea == word1 || palabraalea == word2 || palabraalea == word3 || palabraalea == word4 || palabraalea == word5){
       ganaste()
       alert("Correcto")
+    }else{
+      alert("incorecto")
     }
 
 }
