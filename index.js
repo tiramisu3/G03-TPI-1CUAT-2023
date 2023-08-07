@@ -163,14 +163,16 @@ app.post('/randomWord', async function(req, res){
 });
 
 app.put('/eliminar', async function(req, res){
+
     let validar = true
     //Petición POST con URL = "/login"
     console.log("Soy un pedido POST", req.body); 
     let palabras= await MySQL.realizarQuery("SELECT * FROM Palabras")
+    console.log(req.body.pregunta)
     for (let i in palabras){
         if (palabras[i].palabras == req.body.pregunta){
-            validar = false
-            respuesta = await MySQL.realizarQuery (`DELETE FROM Palabras VALUES("${req.body.pregunta}",${false})`)
+            console.log("CIro4")
+            respuesta = await MySQL.realizarQuery(`DELETE FROM Palabras WHERE VALUES("${req.body.pregunta}")`)
             if (respuesta.length > 0) {
                 res.send({validar: true})    
             }
