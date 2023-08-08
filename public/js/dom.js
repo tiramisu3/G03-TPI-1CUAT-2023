@@ -244,3 +244,10 @@ async function nuevaPalabra(data){
     console.error("Error:", error);
   }
 }
+function ganaste(){
+  document.getElementById("botonComprobar").innerHTML += `        
+        <div class="border" id="masricoID ${id}">
+            <h3>Ganaste: </h3>            
+        </div>
+        <br>`;
+}
