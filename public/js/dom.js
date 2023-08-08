@@ -102,6 +102,12 @@ async function borrar(){
 }
 
 function ganaste(plb){
+
+
+  for(let i=1;i<=5;i++){
+    hola="txt"+i;
+    document.getElementById(hola).className="TXT2";
+  }
   console.log(document.getElementById(plb))
   document.getElementById(plb).innerHTML =`
     <div>
@@ -115,6 +121,7 @@ function ganaste(plb){
   document.getElementById("Comprobar").innerHTML += `        
         <div class="border">
           
+
           <img src="img/fuegos.gif" id="imageFuegos">
           <img src="img/victory.png" id="imageFuegos">
         </div>
