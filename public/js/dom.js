@@ -101,15 +101,26 @@ async function borrar(){
   
 }
 
-function ganaste(){
-  document.getElementById("botonComprobar").innerHTML += `        
-        <div class="border" id="winner ${id}">
+function ganaste(plb){
+  console.log(document.getElementById(plb))
+  document.getElementById(plb).innerHTML =`
+    <div>
+      <input  type="text" id="txt1" class="TXT" name="TXT1" style="text-transform:uppercase background-color:#06ac06" maxlength="1">
+      <input  type="text" id="txt2" class="TXT" name="TXT2" style="text-transform:uppercase background-color:#06ac06" maxlength="1">
+      <input  type="text" id="txt3" class="TXT" name="TXT3" style="text-transform:uppercase background-color:#06ac06" maxlength="1">
+      <input  type="text" id="txt4" class="TXT" name="TXT4" style="text-transform:uppercase background-color:#06ac06" maxlength="1">
+      <input  type="text" id="txt5" class="TXT" name="TXT5" style="text-transform:uppercase background-color:#06ac06" maxlength="1">
+    </div>
+  `
+  document.getElementById("Comprobar").innerHTML += `        
+        <div class="border">
+          
           <img src="img/fuegos.gif" id="imageFuegos">
           <img src="img/victory.png" id="imageFuegos">
         </div>
         <br>`;
 }
-let palabraAleatoria = ""
+let palabraalea={}
 async function palabra_elegida(){
   
   try {
@@ -125,8 +136,8 @@ async function palabra_elegida(){
     const result = await response.json();
     console.log("Success:", result);
 
-    palabraAleatoria = result.palabraAleatoria
-    console.log(palabraAleatoria)
+    palabraalea = result.word.palabras; 
+    console.log(palabraalea)
   } catch (error) {
     console.error("Error:", error);
   }
@@ -138,34 +149,50 @@ function comprobar(){
     let letter3 = document.getElementById("txt3").value;
     let letter4 = document.getElementById("txt4").value;
     let letter5 = document.getElementById("txt5").value;
-    let word1 = letter1 +  letter2 + letter3 + letter4 + letter5;
+    let word1 = (letter1 +  letter2 + letter3 + letter4 + letter5).toUpperCase();
     let letter6 = document.getElementById("txt6").value;
     let letter7 = document.getElementById("txt7").value;
     let letter8 = document.getElementById("txt8").value;
     let letter9 = document.getElementById("txt9").value;
     let letter10 = document.getElementById("txt10").value;
-    let word2 = letter6 +  letter7 + letter8 + letter9 + letter10;
+    let word2 = (letter6 +  letter7 + letter8 + letter9 + letter10).toUpperCase();
     let letter11 = document.getElementById("txt11").value;
     let letter12 = document.getElementById("txt12").value;
     let letter13 = document.getElementById("txt13").value;
     let letter14 = document.getElementById("txt14").value;
     let letter15 = document.getElementById("txt15").value;
-    let word3 = letter11 +  letter12 + letter13 + letter14 + letter15;
+    let word3 = (letter11 +  letter12 + letter13 + letter14 + letter15).toUpperCase();
     let letter16 = document.getElementById("txt16").value;
     let letter17 = document.getElementById("txt17").value;
     let letter18 = document.getElementById("txt18").value;
     let letter19 = document.getElementById("txt19").value;
     let letter20 = document.getElementById("txt20").value;
-    let word4 = letter16 +  letter17 + letter18 + letter19 + letter20;
+    let word4 = (letter16 +  letter17 + letter18 + letter19 + letter20).toUpperCase();
     let letter21 = document.getElementById("txt21").value;
     let letter22 = document.getElementById("txt22").value;
     let letter23 = document.getElementById("txt23").value;
     let letter24 = document.getElementById("txt24").value;
     let letter25 = document.getElementById("txt25").value;
-    let word5 = letter21 +  letter22 + letter23 + letter24 + letter25;
-    if (palabraAleatoria == word1 || palabraAleatoria == word2 || palabraAleatoria == word3 || palabraAleatoria == word4 || palabraAleatoria == word5){
-      ganaste()
+    let word5 = (letter21 +  letter22 + letter23 + letter24 + letter25).toUpperCase();
+    console.log(palabraalea)
+    console.log(word1)
+    if (palabraalea == word1 ){
+      ganaste("palb1")
       alert("Correcto")
+    }else if(palabraalea == word2){
+      ganaste("palb2")
+      alert("Correcto")
+    }else if (palabraalea == word3){
+      ganaste("palb3")
+      alert("Correcto")
+    }else if(palabraalea == word4){
+      ganaste("palb4")
+      alert("Correcto")
+    }else if(palabraalea == word5){
+      ganaste("palb5")
+      alert("Correcto")
+    }else{
+      alert("incorrecto")
     }
 
 }
@@ -237,3 +264,4 @@ async function nuevaPalabra(data){
     console.error("Error:", error);
   }
 }
+
