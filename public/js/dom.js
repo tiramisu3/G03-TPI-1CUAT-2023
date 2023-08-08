@@ -86,9 +86,14 @@ async function borrar(){
   
 }
 
-function ganaste(){
+function ganaste(plb){
+
+  for(let i=1;i<=5;i++){
+    hola="txt"+i;
+    document.getElementById(hola).className="TXT2";
+  }
   document.getElementById("Comprobar").innerHTML += `        
-        <div class="border" id="winner ${id}">
+        <div class="border">
           <img src="img/fuegos.gif" id="imageFuegos">
           <img src="img/victory.png" id="imageFuegos">
         </div>
@@ -150,8 +155,20 @@ function comprobar(){
     let word5 = letter21 +  letter22 + letter23 + letter24 + letter25;
     console.log(palabraalea)
     console.log(word1)
-    if (palabraalea == word1 || palabraalea == word2 || palabraalea == word3 || palabraalea == word4 || palabraalea == word5){
-      ganaste()
+    if (palabraalea == word1 ){
+      ganaste("palb1")
+      alert("Correcto")
+    }else if(palabraalea == word2){
+      ganaste("palb2")
+      alert("Correcto")
+    }else if (palabraalea == word3){
+      ganaste("palb3")
+      alert("Correcto")
+    }else if(palabraalea == word4){
+      ganaste("palb4")
+      alert("Correcto")
+    }else if(palabraalea == word5){
+      ganaste("palb5")
       alert("Correcto")
     }else{
       alert("incorecto")
@@ -182,3 +199,4 @@ async function eliminar(data) {
     console.error("Error:", error);
   }
 }
+
