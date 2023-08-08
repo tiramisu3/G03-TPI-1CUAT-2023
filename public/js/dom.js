@@ -61,7 +61,10 @@ async function mostrar() {
     const result = await response.json();
     console.log("Success:", result);
     let vector = result.palabras[0]
+    let vector2 = result.usuarios[0]
+
     console.log("Success:", vector);
+    console.log("Success:", vector2);
     let html = `
         <select name="select" id="word">
           <option value="value1" selected> Elegir Palabra</option>`
@@ -74,6 +77,18 @@ async function mostrar() {
     }
     html += `</select>`;
     document.getElementById("seleccion").innerHTML = html;
+    let html2 = `
+        <select name="select" id="user">
+          <option value="value1" selected> Elegir Usuario</option>`
+    for (let i in vector2){
+      html2+=
+      `
+          <option>${vector2[i].nom_usuario}</option>
+        
+      `;
+    }
+    html += `</select>`;
+    document.getElementById("seleccionUsuario").innerHTML = html2;
     
   }
     catch (error) {
@@ -88,12 +103,25 @@ async function borrar(){
 
 function ganaste(plb){
 
+
   for(let i=1;i<=5;i++){
     hola="txt"+i;
     document.getElementById(hola).className="TXT2";
   }
+  console.log(document.getElementById(plb))
+  document.getElementById(plb).innerHTML =`
+    <div>
+      <input  type="text" id="txt1" class="TXT" name="TXT1" style="text-transform:uppercase background-color:#06ac06" maxlength="1">
+      <input  type="text" id="txt2" class="TXT" name="TXT2" style="text-transform:uppercase background-color:#06ac06" maxlength="1">
+      <input  type="text" id="txt3" class="TXT" name="TXT3" style="text-transform:uppercase background-color:#06ac06" maxlength="1">
+      <input  type="text" id="txt4" class="TXT" name="TXT4" style="text-transform:uppercase background-color:#06ac06" maxlength="1">
+      <input  type="text" id="txt5" class="TXT" name="TXT5" style="text-transform:uppercase background-color:#06ac06" maxlength="1">
+    </div>
+  `
   document.getElementById("Comprobar").innerHTML += `        
         <div class="border">
+          
+
           <img src="img/fuegos.gif" id="imageFuegos">
           <img src="img/victory.png" id="imageFuegos">
         </div>
@@ -134,25 +162,25 @@ function comprobar(){
     let letter8 = document.getElementById("txt8").value;
     let letter9 = document.getElementById("txt9").value;
     let letter10 = document.getElementById("txt10").value;
-    let word2 = letter6 +  letter7 + letter8 + letter9 + letter10;
+    let word2 = (letter6 +  letter7 + letter8 + letter9 + letter10).toUpperCase();
     let letter11 = document.getElementById("txt11").value;
     let letter12 = document.getElementById("txt12").value;
     let letter13 = document.getElementById("txt13").value;
     let letter14 = document.getElementById("txt14").value;
     let letter15 = document.getElementById("txt15").value;
-    let word3 = letter11 +  letter12 + letter13 + letter14 + letter15;
+    let word3 = (letter11 +  letter12 + letter13 + letter14 + letter15).toUpperCase();
     let letter16 = document.getElementById("txt16").value;
     let letter17 = document.getElementById("txt17").value;
     let letter18 = document.getElementById("txt18").value;
     let letter19 = document.getElementById("txt19").value;
     let letter20 = document.getElementById("txt20").value;
-    let word4 = letter16 +  letter17 + letter18 + letter19 + letter20;
+    let word4 = (letter16 +  letter17 + letter18 + letter19 + letter20).toUpperCase();
     let letter21 = document.getElementById("txt21").value;
     let letter22 = document.getElementById("txt22").value;
     let letter23 = document.getElementById("txt23").value;
     let letter24 = document.getElementById("txt24").value;
     let letter25 = document.getElementById("txt25").value;
-    let word5 = letter21 +  letter22 + letter23 + letter24 + letter25;
+    let word5 = (letter21 +  letter22 + letter23 + letter24 + letter25).toUpperCase();
     console.log(palabraalea)
     console.log(word1)
     if (palabraalea == word1 ){
@@ -171,16 +199,15 @@ function comprobar(){
       ganaste("palb5")
       alert("Correcto")
     }else{
-      alert("incorecto")
+      alert("incorrecto")
     }
 
 }
 function borrar(){
-  palabra= document.getElementById("word")
+  palabra= document.getElementById("word").value
   let data = {
     pregunta: palabra
-}
-
+  }
 eliminar(data)
 }
 async function eliminar(data) {
@@ -194,8 +221,53 @@ async function eliminar(data) {
       },
       body: JSON.stringify(data),
     });
-    
-  } catch (error) {
+    const result = await response.json();
+    console.log("borrar ok ", result);
+
+    if (result.validar == false) {
+      alert("No se pudo borrar la palabra")
+    }
+    else {
+     console.log("Palabra borrada")
+     location.href = '/Admin'
+  } 
+}
+  catch (error) {
+    console.error("Error:", error);
+  }
+}
+function agregar(){
+  let palabra = document.getElementById("nuevaPalabra").value
+  console.log(palabra)
+  let data = {
+    pregunta: palabra
+  }
+
+  nuevaPalabra(data)
+}
+
+async function nuevaPalabra(data){
+  try {
+    const response = await fetch("/agregar", {
+      method: "PUT", // or 'POST'
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    const result = await response.json();
+    console.log("Success palabra:", result);
+
+    if (result.validar == false) {
+      alert("No se pudo agregar la palabra")
+    }
+    else {
+     console.log("Palabra agregada")
+     location.href = '/Admin'
+
+  } 
+}
+  catch (error) {
     console.error("Error:", error);
   }
 }

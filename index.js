@@ -88,6 +88,12 @@ app.post('/Admin', async function(req, res){
     }*/
 });
 
+app.get('/Admin', async function(req, res){
+    console.log("Soy un pedido GET", req.query);
+    res.render('Admin', null);
+
+});
+
 app.put('/login', async function(req, res) {
     //Petición PUT con URL = "/login"
     console.log("Soy un pedido PUT", req.body); //En req.body vamos a obtener el objeto con los parámetros enviados desde el frontend por método PUT
@@ -105,9 +111,11 @@ app.put('/Admin', async function(req, res) {
     //Petición PUT con URL = "/login"
     console.log("Soy un pedido PUT", req.body); //En req.body vamos a obtener el objeto con los parámetros enviados desde el frontend por método PUT
     let vector = [await MySQL.realizarQuery(` SELECT * FROM Palabras `)]
+    let vector2 = [await MySQL.realizarQuery(` SELECT nom_usuario FROM Usuarios `)]
     console.log(vector)
+    console.log(vector2)
     if (vector.length > 0) {
-        res.send({palabras: vector})    
+        res.send({palabras: vector, usuarios: vector2})    
     }
     else{
         res.send({palabras:false})    
@@ -162,19 +170,46 @@ app.post('/randomWord', async function(req, res){
 
 });
 
-app.put('/eliminar', async function(req, res)
-{
+app.put('/eliminar', async function(req, res){
+
     let validar = true
     //Petición POST con URL = "/login"
     console.log("Soy un pedido POST", req.body); 
     let palabras= await MySQL.realizarQuery("SELECT * FROM Palabras")
+    let entre = false
+    console.log(req.body.pregunta)
     for (let i in palabras){
         if (palabras[i].palabras == req.body.pregunta){
-            validar = false
-            await MySQL.realizarQuery (`DELETE FROM Palabras VALUES("${req.body.pregunta}",${false})`)    
+            console.log("CIro4")
+            entre = true
+            respuesta = await MySQL.realizarQuery(`DELETE FROM Palabras WHERE palabras = "${req.body.pregunta}";`)
 
+            res.send({validar: true})    
+            
+            
         }
+    }
+    if (entre == false) {
+        res.send({validar:false})    
     }
     
 });
 
+app.put('/agregar', async function(req, res){
+    let validar = true
+    console.log("Soy un pedido PUT agregar", req.body);
+    let palabras= await MySQL.realizarQuery("SELECT * FROM Palabras")
+    for (let i in palabras){
+        if (palabras[i].palabras == req.body.pregunta){
+            validar = false
+            res.send({validar: false});
+        }
+       
+    }
+    if (validar == true){
+        sumar = await MySQL.realizarQuery (`INSERT INTO Palabras VALUES("${req.body.pregunta}")`)    
+        
+        res.send({validar: true});
+
+    }
+});

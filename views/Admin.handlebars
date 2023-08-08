@@ -1,29 +1,57 @@
-<center><h1>Administrador</h1></center>
-<main>
-    <div id="elegirpalabra" method="POST">
-        <h3>Elegir una palabra</h3>
-        <div id="seleccion">
-            <select name="select">
-                <option value="value1" selected> Elegir Palabra</option>
-                <option value="value2"> </option>
-            </select>
-        </div>
-        
-        
-        <br>
-        <br>
 
-        <div>
-            <input type="submit" class="btn btn-primary" id = "botonAgregar" value="Agregar">
-            <input type="submit" class="btn btn-primary" id = "botonModificar" value="Modificar">
-            <input type="submit" class="btn btn-primary" id = "botonEliminar" value="Eliminar" onclick="borrar()">
+<center><header><h1>Administrador</h1></header></center>
+<body id="bodyAdmin">
+    
+    <main id="mainAdmin" class="card" >
+        
+        <div id="elegirpalabra" method="POST">
+            <h3>Elegir una palabra</h3>
+                <div id="seleccion">
+                    <select name="select" id="elegirPalabra">
+                        <option value="value1" selected> Elegir Palabra</option>
+                        <option value="value2"> </option>
+                    </select>
+                </div>
+            <div>
+                <input type="submit" class="btn btn-primary" id = "botonEliminar" value="Eliminar" onclick="borrar()">
+            </div>
+                       
+            <br>
+            <br>
+
+            <div>
+                <div class="mb-3 form-group">
+                <input type="text" class="form-control" id="nuevaPalabra" name="agregarPalabra" value="" placeholder="Ingrese la palabra">
+                <input type="button" class="btn btn-primary" id = "botonAgregar" value="Agregar" onclick="agregar()">
+            </div>
+
+            <br>
+            <br>
+            <div>
+            </div>
         </div>
-        <br>
-        <br>
-        <div>
-        </div>
-    </div>
-    <script>
-        mostrar();
-    </script>
-</main>
+        <script>
+            mostrar();
+        </script>
+    </main>
+    <aside>
+        <main id="mainAdmin" class="card" >
+            
+            <div id="elegirpalabra" method="POST">
+                <h3>Elegir una palabra</h3>
+                    <div id="seleccionUsuario">
+                        <select name="select" id="elegirPalabra">
+                            <option value="value1" selected> Elegir Usuario</option>
+                            <option value="value2"> </option>
+                        </select>
+                    </div>
+                <div>
+                    <input type="submit" class="btn btn-primary" id = "botonEliminar" value="Eliminar" onclick="borrarUsuario()">
+                </div>
+        </main>
+    </aside>
+</body>
+<footer id="footer2">
+    <h6>Colegio Pio IX</h6>
+    <p>Primer proyecto Interdisciplinario - Grupo 3 - Amiano, Basile, Feroce, Rosenthal, Pico</p>
+</footer>
