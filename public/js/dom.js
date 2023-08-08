@@ -61,7 +61,10 @@ async function mostrar() {
     const result = await response.json();
     console.log("Success:", result);
     let vector = result.palabras[0]
+    let vector2 = result.usuarios[0]
+
     console.log("Success:", vector);
+    console.log("Success:", vector2);
     let html = `
         <select name="select" id="word">
           <option value="value1" selected> Elegir Palabra</option>`
@@ -74,6 +77,18 @@ async function mostrar() {
     }
     html += `</select>`;
     document.getElementById("seleccion").innerHTML = html;
+    let html2 = `
+        <select name="select" id="user">
+          <option value="value1" selected> Elegir Usuario</option>`
+    for (let i in vector2){
+      html2+=
+      `
+          <option>${vector2[i].nom_usuario}</option>
+        
+      `;
+    }
+    html += `</select>`;
+    document.getElementById("seleccionUsuario").innerHTML = html2;
     
   }
     catch (error) {
@@ -180,6 +195,7 @@ async function eliminar(data) {
     }
     else {
      console.log("Palabra borrada")
+     location.href = '/Admin'
   } 
 }
   catch (error) {
@@ -189,7 +205,9 @@ async function eliminar(data) {
 function agregar(){
   let palabra = document.getElementById("nuevaPalabra").value
   console.log(palabra)
-  let data = palabra
+  let data = {
+    pregunta: palabra
+  }
 
   nuevaPalabra(data)
 }
@@ -211,6 +229,8 @@ async function nuevaPalabra(data){
     }
     else {
      console.log("Palabra agregada")
+     location.href = '/Admin'
+
   } 
 }
   catch (error) {
