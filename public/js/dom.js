@@ -119,14 +119,11 @@ function ganaste(plb){
         </div>
         <br>`;
 }
-<<<<<<< Updated upstream
-function cerca(){
-  
-}
+
 let palabraalea={}
-=======
+
 let plabraalea = ""
->>>>>>> Stashed changes
+
 async function palabra_elegida(){
   
   try {
@@ -142,8 +139,8 @@ async function palabra_elegida(){
     const result = await response.json();
     console.log("Success:", result);
 
-    palabraAleatoria = result.palabraAleatoria
-    console.log(palabraAleatoria)
+    palabraalea = result.word.palabras
+    console.log(palabraalea)
   } catch (error) {
     console.error("Error:", error);
   }
@@ -161,40 +158,25 @@ function comprobar(){
     let letter8 = document.getElementById("txt8").value;
     let letter9 = document.getElementById("txt9").value;
     let letter10 = document.getElementById("txt10").value;
-<<<<<<< Updated upstream
     let word2 = (letter6 +  letter7 + letter8 + letter9 + letter10).toUpperCase();
-=======
-    let word2 = (letter6 +  letter7 + letter8 + letter9 + letter10).toUpperCase()
->>>>>>> Stashed changes
     let letter11 = document.getElementById("txt11").value;
     let letter12 = document.getElementById("txt12").value;
     let letter13 = document.getElementById("txt13").value;
     let letter14 = document.getElementById("txt14").value;
     let letter15 = document.getElementById("txt15").value;
-<<<<<<< Updated upstream
     let word3 = (letter11 +  letter12 + letter13 + letter14 + letter15).toUpperCase();
-=======
-    let word3 = (letter11 +  letter12 + letter13 + letter14 + letter15).toUpperCase()
->>>>>>> Stashed changes
     let letter16 = document.getElementById("txt16").value;
     let letter17 = document.getElementById("txt17").value;
     let letter18 = document.getElementById("txt18").value;
     let letter19 = document.getElementById("txt19").value;
     let letter20 = document.getElementById("txt20").value;
-<<<<<<< Updated upstream
     let word4 = (letter16 +  letter17 + letter18 + letter19 + letter20).toUpperCase();
-=======
-    let word4 = (letter16 +  letter17 + letter18 + letter19 + letter20).toUpperCase()
->>>>>>> Stashed changes
     let letter21 = document.getElementById("txt21").value;
     let letter22 = document.getElementById("txt22").value;
     let letter23 = document.getElementById("txt23").value;
     let letter24 = document.getElementById("txt24").value;
     let letter25 = document.getElementById("txt25").value;
-<<<<<<< Updated upstream
     let word5 = (letter21 +  letter22 + letter23 + letter24 + letter25).toUpperCase();
-    console.log(palabraalea)
-    console.log(word1)
     if (palabraalea == word1 ){
       ganaste(1)
       alert("Correcto")
@@ -209,16 +191,22 @@ function comprobar(){
       alert("Correcto")
     }else if(palabraalea == word5){
       ganaste(5)
-=======
-    let word5 = letter21 +  letter22 + letter23 + letter24 + letter25;
-    if (palabraAleatoria == word1 || palabraAleatoria == word2 || palabraAleatoria == word3 || palabraAleatoria == word4 || palabraAleatoria == word5){
-      ganaste()
->>>>>>> Stashed changes
-      alert("Correcto")
     }else{
       alert("incorrecto")
+      intentos += 1
+      if (intentos = 5){
+        perdiste()
+      }
     }
 
+
+}
+function cerca(word, wordNumber){
+  for (let i in palabraalea){
+    if(palabraalea[i]==word[i]){
+      document.getElementById("txt"+((wordNumber-1)*5+(i+1)).toString()).className="TXT2"
+    }
+  }
 }
 function borrar(){
   palabra= document.getElementById("word").value
@@ -289,3 +277,38 @@ async function nuevaPalabra(data){
   }
 }
 
+function borrarUsuario(){
+  usuario= document.getElementById("user").value
+  console.log(usuario)
+  let data = {
+    pregunta: usuario
+  }
+eliminarUsuario(data)
+}
+
+async function eliminarUsuario(data) {
+  //putJSON() es solo el nombre de esta funcion que lo pueden cambiar    
+
+  try {
+    const response = await fetch("/eliminarUsuario", {
+      method: "PUT", // or 'POST'
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    const result = await response.json();
+    console.log("borrar ok ", result);
+
+    if (result.validar == false) {
+      alert("No se pudo borrar el usuario")
+    }
+    else {
+     console.log("Usuario borrado")
+     location.href = '/Admin'
+  } 
+}
+  catch (error) {
+    console.error("Error:", error);
+  }
+}
