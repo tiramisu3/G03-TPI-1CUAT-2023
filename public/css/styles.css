@@ -206,7 +206,7 @@ color: white;
     
     color: white;
 }
-#main {
+#modal {
     position: fixed;
     top: 0;
     left: 0;
@@ -217,5 +217,4 @@ color: white;
     overflow-x: hidden;
     overflow-y: auto;
     outline: 0;
-}
 }
