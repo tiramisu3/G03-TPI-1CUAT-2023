@@ -146,7 +146,7 @@ async function palabra_elegida(){
   }
 }
 function comprobar(){
-  const intentos = 5
+  const intentos = 0
     let letter1 = document.getElementById("txt1").value;
     let letter2 = document.getElementById("txt2").value;
     let letter3 = document.getElementById("txt3").value;
@@ -200,6 +200,7 @@ function comprobar(){
     }
 
 
+
 }
 function cerca(word, wordNumber){
   for (let i in palabraalea){
@@ -207,6 +208,18 @@ function cerca(word, wordNumber){
       document.getElementById("txt"+((wordNumber-1)*5+(i+1)).toString()).className="TXT2"
     }
   }
+
+}
+function perdiste(){
+  document.getElementById("Comprobar").innerHTML += `        
+        <div class="border">
+          <main id="mainPerdiste" class="card">
+            <center><h3>PERDISTE</h3></center>
+            <p>Utilizaste tus 5 intentos</p>
+            <p>La palabra era: ${palabraalea}</p>
+        </div>
+        <br>`
+
 }
 function borrar(){
   palabra= document.getElementById("word").value
@@ -311,4 +324,8 @@ async function eliminarUsuario(data) {
   catch (error) {
     console.error("Error:", error);
   }
+
 }
+
+}
+

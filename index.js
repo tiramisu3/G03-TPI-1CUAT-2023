@@ -179,7 +179,6 @@ app.put('/eliminar', async function(req, res){
     console.log(req.body.pregunta)
     for (let i in palabras){
         if (palabras[i].palabras == req.body.pregunta){
-            console.log("CIro4")
             entre = true
             respuesta = await MySQL.realizarQuery(`DELETE FROM Palabras WHERE palabras = "${req.body.pregunta}";`)
 
@@ -211,4 +210,28 @@ app.put('/agregar', async function(req, res){
         res.send({validar: true});
 
     }
+});
+
+app.put('/eliminarUsuario', async function(req, res){
+
+    let validar = true
+    //Petición POST con URL = "/login"
+    console.log("Soy un pedido PUT", req.body); 
+    let usuarios= await MySQL.realizarQuery("SELECT * FROM Usuarios")
+    let entre = false
+    console.log(req.body.pregunta)
+    for (let i in usuarios){
+        if (usuarios[i].nom_usuario == req.body.pregunta){
+            entre = true
+            respuesta = await MySQL.realizarQuery(`DELETE FROM Usuarios WHERE nom_usuario = "${req.body.pregunta}";`)
+
+            res.send({validar: true})    
+            
+            
+        }
+    }
+    if (entre == false) {
+        res.send({validar:false})    
+    }
+    
 });
