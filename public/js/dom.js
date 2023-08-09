@@ -159,7 +159,7 @@ async function palabra_elegida(){
 var intentos = 0
 var puntaje = 0
 function comprobar(){
-
+  let intentos = 0
     let letter1 = document.getElementById("txt1").value;
     let letter2 = document.getElementById("txt2").value;
     let letter3 = document.getElementById("txt3").value;
@@ -216,17 +216,40 @@ function comprobar(){
         perdiste()
       }
     }
-
-
-
+    let a=((intentos)*5)+1;//seguircon esto
+    let b=intentos*5;
+  
+    for(let i=a;i<=b;i++){
+      if (intentos == 0){
+        var dis =document.getElementById("palb2").getElementsByTagName('input');
+        for (var d of dis) {
+            d.disabled = true;
+        }
+        var dis2 =document.getElementById("palb3").getElementsByTagName('input');
+        for (var d2 of dis2) {
+            d2.disabled = true;
+        }
+        var dis3 =document.getElementById("palb4").getElementsByTagName('input');
+        for (var d3 of dis3) {
+            d3.disabled = true;
+        }
+        var dis4 =document.getElementById("palb5").getElementsByTagName('input');
+        for (var d4 of dis4) {
+            d4.disabled = true;
+        }
+  }
+  }
+    
 }
 function cerca(word, wordNumber){
   for (let i in palabraalea){
     if(palabraalea[i]==word[i]){
-      document.getElementById("txt"+((wordNumber-1)*5+(i+1)).toString()).className="TXT2"
+      document.getElementById("txt"+((wordNumber-1)*5+(parseInt(i)+1)).toString()).className="TXT2"
+    } else if (palabraalea.includes(word[i])){
+      document.getElementById("txt"+((wordNumber-1)*5+(parseInt(i)+1)).toString()).className="TXT3"
     }
   }
-
+  
 }
 function perdiste(){
   document.getElementById("Comprobar").innerHTML += ` 
@@ -356,6 +379,3 @@ async function eliminarUsuario(data) {
   }
 
 }
-
-
-
