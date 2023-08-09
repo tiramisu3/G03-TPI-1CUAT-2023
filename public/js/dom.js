@@ -208,6 +208,7 @@ function comprobar(){
       puntaje += 40
     }else if(palabraalea == word5){
       ganaste(5)
+      puntaje += 20
     }else{
       alert("incorrecto")
       intentos += 1
@@ -230,12 +231,23 @@ function cerca(word, wordNumber){
 function perdiste(){
   document.getElementById("Comprobar").innerHTML += ` 
          <br>
-
-          <main id="mainPerdiste" class="card">
-            <center><h3>PERDISTE</h3></center>
-            <p class="card-text">Utilizaste tus 5 intentos</p>
-            <p class="card-text">La palabra era: ${palabraalea}</p>
-
+         <div id="modal" tabindex="-1" role="dialog">
+         <div class="modal-dialog" role="document">
+           <div class="modal-content">
+             <div class="modal-header">
+               <h5 class="modal-title">PERDISTE</h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                 <span aria-hidden="true">&times;</span>
+               </button>
+             </div>
+             <div class="modal-body">
+               <p>Utilizaste tus 5 intentos</p>
+               <p>La palabra era: ${palabraalea}</p>
+             </div>
+             </div>
+           </div>
+         </div>
+       </div>
         <br>`
 
 }
@@ -345,5 +357,5 @@ async function eliminarUsuario(data) {
 
 }
 
-}
+
 
