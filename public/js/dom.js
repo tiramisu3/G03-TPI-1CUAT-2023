@@ -102,22 +102,14 @@ async function borrar(){
 }
 
 function ganaste(plb){
+  let a=((plb-1)*5)+1;
+  let b=plb*5;
 
-
-  for(let i=1;i<=5;i++){
+  for(let i=a;i<=b;i++){
     hola="txt"+i;
     document.getElementById(hola).className="TXT2";
   }
   console.log(document.getElementById(plb))
-  document.getElementById(plb).innerHTML =`
-    <div>
-      <input  type="text" id="txt1" class="TXT" name="TXT1" style="text-transform:uppercase background-color:#06ac06" maxlength="1">
-      <input  type="text" id="txt2" class="TXT" name="TXT2" style="text-transform:uppercase background-color:#06ac06" maxlength="1">
-      <input  type="text" id="txt3" class="TXT" name="TXT3" style="text-transform:uppercase background-color:#06ac06" maxlength="1">
-      <input  type="text" id="txt4" class="TXT" name="TXT4" style="text-transform:uppercase background-color:#06ac06" maxlength="1">
-      <input  type="text" id="txt5" class="TXT" name="TXT5" style="text-transform:uppercase background-color:#06ac06" maxlength="1">
-    </div>
-  `
   document.getElementById("Comprobar").innerHTML += `        
         <div class="border">
           
@@ -126,6 +118,9 @@ function ganaste(plb){
           <img src="img/victory.png" id="imageFuegos">
         </div>
         <br>`;
+}
+function cerca(){
+  
 }
 let palabraalea={}
 async function palabra_elegida(){
@@ -184,19 +179,19 @@ function comprobar(){
     console.log(palabraalea)
     console.log(word1)
     if (palabraalea == word1 ){
-      ganaste("palb1")
+      ganaste(1)
       alert("Correcto")
     }else if(palabraalea == word2){
-      ganaste("palb2")
+      ganaste(2)
       alert("Correcto")
     }else if (palabraalea == word3){
-      ganaste("palb3")
+      ganaste(3)
       alert("Correcto")
     }else if(palabraalea == word4){
-      ganaste("palb4")
+      ganaste(4)
       alert("Correcto")
     }else if(palabraalea == word5){
-      ganaste("palb5")
+      ganaste(5)
       alert("Correcto")
     }else{
       alert("incorrecto")
