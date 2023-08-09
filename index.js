@@ -165,7 +165,6 @@ app.post('/randomWord', async function(req, res){
     let palabra= await MySQL.realizarQuery("SELECT palabras FROM Palabras")
     var indiceAleatorio = Math.floor(Math.random() * palabra.length)
     var palabraAleatoria = palabra[indiceAleatorio]
-   // let word = palabraAleatoria.split("")
     res.send({word: palabraAleatoria})
 
 });

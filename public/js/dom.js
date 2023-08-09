@@ -104,28 +104,32 @@ async function borrar(){
 }
 
 function ganaste(plb){
+  let a=((plb-1)*5)+1;
+  let b=plb*5;
+
+  for(let i=a;i<=b;i++){
+    hola="txt"+i;
+    document.getElementById(hola).className="TXT2";
+  }
   console.log(document.getElementById(plb))
-  document.getElementById(plb).innerHTML =`
-    <div>
-      <input  type="text" id="txt1" class="TXT" name="TXT1" style="text-transform:uppercase background-color:#06ac06" maxlength="1">
-      <input  type="text" id="txt2" class="TXT" name="TXT2" style="text-transform:uppercase background-color:#06ac06" maxlength="1">
-      <input  type="text" id="txt3" class="TXT" name="TXT3" style="text-transform:uppercase background-color:#06ac06" maxlength="1">
-      <input  type="text" id="txt4" class="TXT" name="TXT4" style="text-transform:uppercase background-color:#06ac06" maxlength="1">
-      <input  type="text" id="txt5" class="TXT" name="TXT5" style="text-transform:uppercase background-color:#06ac06" maxlength="1">
-    </div>
-  `
   document.getElementById("Comprobar").innerHTML += `        
         <div class="border">
+
           <main id="mainGanaste" class="card">
           <center><h3>GANASTE</h3></center>
           <p>Ganaste a los ${intentos} intentos</p>
           <p>Puntaje: ${puntaje}</p>
+
           <img src="img/fuegos.gif" id="imageFuegos">
           <img src="img/victory.png" id="imageFuegos">
         </div>
         <br>`;
 }
+
 let palabraalea={}
+
+let plabraalea = ""
+
 async function palabra_elegida(){
   
   try {
@@ -140,8 +144,13 @@ async function palabra_elegida(){
     //En result obtengo la respuesta
     const result = await response.json();
     console.log("Success:", result);
+
     console.log(result)
     palabraalea = result.word.palabras; 
+
+
+    palabraalea = result.word.palabras
+
     console.log(palabraalea)
   } catch (error) {
     console.error("Error:", error);
@@ -156,7 +165,7 @@ function comprobar(){
     let letter3 = document.getElementById("txt3").value;
     let letter4 = document.getElementById("txt4").value;
     let letter5 = document.getElementById("txt5").value;
-    let word1 = (letter1 +  letter2 + letter3 + letter4 + letter5).toUpperCase();
+    let word1 = letter1 +  letter2 + letter3 + letter4 + letter5;
     let letter6 = document.getElementById("txt6").value;
     let letter7 = document.getElementById("txt7").value;
     let letter8 = document.getElementById("txt8").value;
@@ -181,27 +190,24 @@ function comprobar(){
     let letter24 = document.getElementById("txt24").value;
     let letter25 = document.getElementById("txt25").value;
     let word5 = (letter21 +  letter22 + letter23 + letter24 + letter25).toUpperCase();
-    console.log(palabraalea)
-    console.log(word1)
     if (palabraalea == word1 ){
-      ganaste("palb1")
+      ganaste(1)
       alert("Correcto")
       puntaje += 100
     }else if(palabraalea == word2){
-      ganaste("palb2")
+      ganaste(2)
       alert("Correcto")
       puntaje += 80
     }else if (palabraalea == word3){
-      ganaste("palb3")
+      ganaste(3)
       alert("Correcto")
       puntaje += 60
     }else if(palabraalea == word4){
-      ganaste("palb4")
+      ganaste(4)
       alert("Correcto")
       puntaje += 40
     }else if(palabraalea == word5){
-      ganaste("palb5")
-      alert("Correcto")
+      ganaste(5)
     }else{
       alert("incorrecto")
       intentos += 1
@@ -209,6 +215,17 @@ function comprobar(){
         perdiste()
       }
     }
+
+
+
+}
+function cerca(word, wordNumber){
+  for (let i in palabraalea){
+    if(palabraalea[i]==word[i]){
+      document.getElementById("txt"+((wordNumber-1)*5+(i+1)).toString()).className="TXT2"
+    }
+  }
+
 }
 function perdiste(){
   document.getElementById("Comprobar").innerHTML += ` 
@@ -220,6 +237,7 @@ function perdiste(){
             <p class="card-text">La palabra era: ${palabraalea}</p>
 
         <br>`
+
 }
 function borrar(){
   palabra= document.getElementById("word").value
@@ -324,4 +342,8 @@ async function eliminarUsuario(data) {
   catch (error) {
     console.error("Error:", error);
   }
+
 }
+
+}
+
