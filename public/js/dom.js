@@ -143,7 +143,7 @@ async function palabra_elegida(){
   }
 }
 function comprobar(){
-  const intentos = 5
+  const intentos = 0
     let letter1 = document.getElementById("txt1").value;
     let letter2 = document.getElementById("txt2").value;
     let letter3 = document.getElementById("txt3").value;
@@ -193,8 +193,21 @@ function comprobar(){
       alert("Correcto")
     }else{
       alert("incorrecto")
+      intentos += 1
+      if (intentos = 5){
+        perdiste()
+      }
     }
-
+}
+function perdiste(){
+  document.getElementById("Comprobar").innerHTML += `        
+        <div class="border">
+          <main id="mainPerdiste" class="card">
+            <center><h3>PERDISTE</h3></center>
+            <p>Utilizaste tus 5 intentos</p>
+            <p>La palabra era: ${palabraalea}</p>
+        </div>
+        <br>`
 }
 function borrar(){
   palabra= document.getElementById("word").value
@@ -265,3 +278,38 @@ async function nuevaPalabra(data){
   }
 }
 
+function borrarUsuario(){
+  usuario= document.getElementById("user").value
+  console.log(usuario)
+  let data = {
+    pregunta: usuario
+  }
+eliminarUsuario(data)
+}
+
+async function eliminarUsuario(data) {
+  //putJSON() es solo el nombre de esta funcion que lo pueden cambiar    
+
+  try {
+    const response = await fetch("/eliminarUsuario", {
+      method: "PUT", // or 'POST'
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    const result = await response.json();
+    console.log("borrar ok ", result);
+
+    if (result.validar == false) {
+      alert("No se pudo borrar el usuario")
+    }
+    else {
+     console.log("Usuario borrado")
+     location.href = '/Admin'
+  } 
+}
+  catch (error) {
+    console.error("Error:", error);
+  }
+}
