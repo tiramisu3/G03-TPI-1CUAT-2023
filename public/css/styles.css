@@ -161,8 +161,19 @@
 
 }
 
-.TXT2s {
+.TXT2 {
     background-color: #07c807;
+    color: white;
+    border-radius: 2px;
+    padding: 20px 5px;
+    width: 85px;
+    height: 45px;
+    text-size-adjust: auto;
+    font-size: 50px;
+    text-align: center;
+}
+.TXT3 {
+    background-color: #d0e611;
     color: white;
     border-radius: 2px;
     padding: 20px 5px;
