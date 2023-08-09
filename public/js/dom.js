@@ -260,7 +260,7 @@ function perdiste(){
              <div class="modal-header">
                <h5 class="modal-title">PERDISTE</h5>
                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                 <span aria-hidden="true">&times;</span>
+                <span aria-hidden="true" onclick="cerrarModal()">&times;</span>
                </button>
              </div>
              <div class="modal-body">
@@ -272,7 +272,9 @@ function perdiste(){
          </div>
        </div>
         <br>`
-
+}
+function cerrarModal() {
+  document.getElementById("modal").innerHTML = ""
 }
 function borrar(){
   palabra= document.getElementById("word").value
