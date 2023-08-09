@@ -359,5 +359,8 @@ async function eliminarUsuario(data) {
 
 }
 
+function volveraJugar(){
+  location.href = '/login'
 
+}
 
