@@ -156,8 +156,10 @@ app.post('/nuevousuario', async function(req, res)
     
     //res.render('home', null); //Renderizo página "home" sin pasar ningún objeto a Handlebars
 });
-app.post('/home', async function(req, res){
-    
+app.get('/reiniciar', async function(req, res){
+    console.log("Soy un pedido GET", req.query); 
+    //En req.query vamos a obtener el objeto con los parámetros enviados desde el frontend por método GET
+    res.render('home', null); //Renderizo página "home" sin pasar ningún objeto a Handlebars
 })
 
 app.post('/randomWord', async function(req, res){
