@@ -240,3 +240,10 @@ app.get('/home', function(req, res) {
     res.render('home', null)
     ;
 });
+
+app.get('/volver', function(req, res) {
+    //Petición DELETE con URL = "/login"
+    console.log("Soy un pedido GET", req.body); //En req.body vamos a obtener el objeto con los parámetros enviados desde el frontend por método DELETE
+    res.render('login', null)
+    ;
+});

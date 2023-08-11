@@ -399,3 +399,7 @@ function volverJugar(){
 
 }
 
+function salir(){
+  location.href = '/volver'
+
+}
