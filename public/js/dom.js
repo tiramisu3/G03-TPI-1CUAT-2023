@@ -1,6 +1,6 @@
 async function entrar(data) {
   //putJSON() es solo el nombre de esta funcion que lo pueden cambiar    
-
+  
   try {
     const response = await fetch("/login", {
       method: "PUT", // or 'POST'
@@ -17,8 +17,10 @@ async function entrar(data) {
     if (result.validar == false) {
       alert("Los datos son incorrectos")
     } else {
+      
       //Envio el formularia desde dom para cambiar de pagina
       //Podria usar tambien un changeScreen()
+      
       if (result.esadmin == true){
         document.getElementById("administrador").submit()  
         }  else 
@@ -112,7 +114,11 @@ function ganaste(plb){
   console.log(document.getElementById(plb))
   document.getElementById("Comprobar").innerHTML += `        
         <div class="border">
-          
+
+          <main id="mainGanaste" class="card">
+          <center><h3>GANASTE</h3></center>
+          <p>Ganaste a los ${intentos} intentos</p>
+          <p>Puntaje: ${puntaje}</p>
 
           <img src="img/fuegos.gif" id="imageFuegos">
           <img src="img/victory.png" id="imageFuegos">
@@ -139,13 +145,17 @@ async function palabra_elegida(){
     const result = await response.json();
     console.log("Success:", result);
 
+    console.log(result)
+    palabraalea = result.word.palabras; 
+
+
     palabraalea = result.word.palabras
+
     console.log(palabraalea)
   } catch (error) {
     console.error("Error:", error);
   }
 }
-let intentos = 0
 function comprobar(){
     let letter1 = document.getElementById("txt1").value;
     let letter2 = document.getElementById("txt2").value;
@@ -182,25 +192,27 @@ function comprobar(){
       ganaste(1)
       intentos=6;
       alert("Correcto")
+      puntaje += 100
     }else if(palabraalea == word2){
       ganaste(2)
       intentos=6;
       alert("Correcto")
+      puntaje += 80
     }else if (palabraalea == word3){
       ganaste(3)
       intentos=6;
       alert("Correcto")
+      puntaje += 60
     }else if(palabraalea == word4){
       ganaste(4)
       intentos=6;
       alert("Correcto")
+      puntaje += 40
     }else if(palabraalea == word5){
       ganaste(5)
-      intentos=6;
     }else{
       alert("incorrecto")
-      intentos += 1;
-      cerca()
+      intentos += 1
       if (intentos == 5){
         perdiste()
       }
@@ -269,13 +281,25 @@ function cerca(word, wordNumber){
   }
 }
 function perdiste(){
-  document.getElementById("Comprobar").innerHTML += `        
-        <div class="border">
-          <main id="mainPerdiste" class="card">
-            <center><h3>PERDISTE</h3></center>
-            <p>Utilizaste tus 5 intentos</p>
-            <p>La palabra era: ${palabraalea}</p>
-        </div>
+  document.getElementById("Comprobar").innerHTML += ` 
+         <br>
+         <div id="modal" tabindex="-1" role="dialog">
+         <div class="modal-dialog" role="document">
+           <div class="modal-content">
+             <div class="modal-header">
+               <h5 class="modal-title">PERDISTE</h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                 <span aria-hidden="true">&times;</span>
+               </button>
+             </div>
+             <div class="modal-body">
+               <p>Utilizaste tus 5 intentos</p>
+               <p>La palabra era: ${palabraalea}</p>
+             </div>
+             </div>
+           </div>
+         </div>
+       </div>
         <br>`
 
 }
@@ -384,5 +408,3 @@ async function eliminarUsuario(data) {
   }
 
 }
-
-
