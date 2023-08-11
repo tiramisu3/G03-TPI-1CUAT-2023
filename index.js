@@ -237,5 +237,6 @@ app.put('/eliminarUsuario', async function(req, res){
 app.get('/home', function(req, res) {
     //Petición DELETE con URL = "/login"
     console.log("Soy un pedido GET", req.body); //En req.body vamos a obtener el objeto con los parámetros enviados desde el frontend por método DELETE
-    res.render('home', null);
+    res.render('home', null)
+    ;
 });
