@@ -113,17 +113,25 @@ function ganaste(plb){
   }
   console.log(document.getElementById(plb))
   document.getElementById("Comprobar").innerHTML += `        
-        <div class="border">
-
-          <main id="mainGanaste" class="card">
-          <center><h3>GANASTE</h3></center>
-          <p>Ganaste a los ${intentos} intentos</p>
-          <p>Puntaje: ${puntaje}</p>
-
-          <img src="img/fuegos.gif" id="imageFuegos">
-          <img src="img/victory.png" id="imageFuegos">
+    <br>
+    <div id="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">PERDISTE</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" onclick="cerrarModal()">&times;</span>
+          </button>
         </div>
-        <br>`;
+        <div class="modal-body">
+          <p>Utilizaste tus 5 intentos</p>
+          <p>La palabra era: ${palabraalea}</p>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>`;
 }
 
 let palabraalea={}
@@ -381,3 +389,9 @@ async function eliminarUsuario(data) {
   }
 
 }
+
+function volverJugar(){
+  location.href = '/home'
+
+}
+

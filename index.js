@@ -122,11 +122,7 @@ app.put('/Admin', async function(req, res) {
     }
 });
 
-app.delete('/login', function(req, res) {
-    //Petición DELETE con URL = "/login"
-    console.log("Soy un pedido DELETE", req.body); //En req.body vamos a obtener el objeto con los parámetros enviados desde el frontend por método DELETE
-    res.send(null);
-});
+
 app.get('/registrarse', function(req, res){
     //Petición GET con URL = "/login"
     console.log("Soy un pedido GET", req.query); 
@@ -156,8 +152,10 @@ app.post('/nuevousuario', async function(req, res)
     
     //res.render('home', null); //Renderizo página "home" sin pasar ningún objeto a Handlebars
 });
-app.post('/home', async function(req, res){
-    
+app.get('/reiniciar', async function(req, res){
+    console.log("Soy un pedido GET", req.query); 
+    //En req.query vamos a obtener el objeto con los parámetros enviados desde el frontend por método GET
+    res.render('home', null); //Renderizo página "home" sin pasar ningún objeto a Handlebars
 })
 
 app.post('/randomWord', async function(req, res){
@@ -234,4 +232,10 @@ app.put('/eliminarUsuario', async function(req, res){
         res.send({validar:false})    
     }
     
+});
+
+app.get('/home', function(req, res) {
+    //Petición DELETE con URL = "/login"
+    console.log("Soy un pedido GET", req.body); //En req.body vamos a obtener el objeto con los parámetros enviados desde el frontend por método DELETE
+    res.render('home', null);
 });
