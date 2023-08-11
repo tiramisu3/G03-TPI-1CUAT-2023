@@ -103,37 +103,6 @@ async function borrar(){
   
 }
 
-function ganaste(plb){
-  let a=((plb-1)*5)+1;
-  let b=plb*5;
-
-  for(let i=a;i<=b;i++){
-    hola="txt"+i;
-    document.getElementById(hola).className="TXT2";
-  }
-  console.log(document.getElementById(plb))
-  document.getElementById("Comprobar").innerHTML += `        
-    <br>
-    <div id="modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">GANASTE</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true" onclick="cerrarModal()">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <p>FELICITACIONES</p>
-          <p>Lo lograste en: ${intentos} intentos</p>
-          <p>Tu puntaje es de: ${puntaje} puntos</p>
-        </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <br>`;
-}
 
 let palabraalea={}
 
@@ -199,24 +168,25 @@ function comprobar(){
     let letter25 = document.getElementById("txt25").value;
     let word5 = (letter21 +  letter22 + letter23 + letter24 + letter25).toUpperCase();
     if (palabraalea == word1 ){
+      puntaje += 100
+      intentos +=1
       ganaste(1)
       alert("Correcto")
-      puntaje += 100
     }else if(palabraalea == word2){
+      puntaje += 80
       ganaste(2)
       alert("Correcto")
-      puntaje += 80
     }else if (palabraalea == word3){
+      puntaje += 60
       ganaste(3)
       alert("Correcto")
-      puntaje += 60
     }else if(palabraalea == word4){
+      puntaje += 40
       ganaste(4)
       alert("Correcto")
-      puntaje += 40
     }else if(palabraalea == word5){
-      ganaste(5)
       puntaje += 20
+      ganaste(5)
     }else{
       alert("incorrecto")
       intentos += 1
@@ -259,6 +229,40 @@ function cerca(word, wordNumber){
   }
   
 }
+
+function ganaste(plb){
+  let a=((plb-1)*5)+1;
+  let b=plb*5;
+
+  for(let i=a;i<=b;i++){
+    hola="txt"+i;
+    document.getElementById(hola).className="TXT2";
+  }
+  console.log(document.getElementById(plb))
+  document.getElementById("Comprobar").innerHTML += `        
+    <br>
+    <div id="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">GANASTE</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" onclick="cerrarModal()">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>FELICITACIONES</p>
+          <p>Lo lograste en: ${intentos} intentos</p>
+          <p>Tu puntaje es de: ${puntaje} puntos</p>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>`;
+}
+
+
 function perdiste(){
   document.getElementById("Comprobar").innerHTML += ` 
          <br>
