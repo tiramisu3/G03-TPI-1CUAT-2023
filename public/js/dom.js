@@ -134,8 +134,6 @@ async function palabra_elegida(){
     console.error("Error:", error);
   }
 }
-var intentos = 0
-var puntaje = 0
 function comprobar(){
     let letter1 = document.getElementById("txt1").value;
     let letter2 = document.getElementById("txt2").value;
@@ -167,25 +165,33 @@ function comprobar(){
     let letter24 = document.getElementById("txt24").value;
     let letter25 = document.getElementById("txt25").value;
     let word5 = (letter21 +  letter22 + letter23 + letter24 + letter25).toUpperCase();
+    let words=[word1,"word2","word3","word4","word5"]
     if (palabraalea == word1 ){
       puntaje += 100
       intentos +=1
       ganaste(1)
+      intentos=6;
       alert("Correcto")
     }else if(palabraalea == word2){
       puntaje += 80
       ganaste(2)
+      intentos=6;
       alert("Correcto")
     }else if (palabraalea == word3){
       puntaje += 60
       ganaste(3)
+      intentos=6;
       alert("Correcto")
     }else if(palabraalea == word4){
       puntaje += 40
       ganaste(4)
+      intentos=6;
       alert("Correcto")
     }else if(palabraalea == word5){
+
+
       puntaje += 20
+
       ganaste(5)
     }else{
       alert("incorrecto")
@@ -194,40 +200,68 @@ function comprobar(){
         perdiste()
       }
     }
-    let a=((intentos)*5)+1;//seguircon esto
+    for(i in words){
+      console.log(words)
+      cerca(words[i],i+1)
+    }
+    let a=((intentos-1)*5)+1;//seguircon esto
     let b=intentos*5;
   
-    for(let i=a;i<=b;i++){
-      if (intentos == 0){
-        var dis =document.getElementById("palb2").getElementsByTagName('input');
-        for (var d of dis) {
-            d.disabled = true;
-        }
-        var dis2 =document.getElementById("palb3").getElementsByTagName('input');
+      if (intentos == 1){
+        var dis2 =document.getElementById("palb2").getElementsByTagName('input');
         for (var d2 of dis2) {
-            d2.disabled = true;
+            d2.disabled = false;
         }
-        var dis3 =document.getElementById("palb4").getElementsByTagName('input');
+        var dis1 =document.getElementById("palb1").getElementsByTagName('input');
+        for (var d1 of dis1) {
+            d1.disabled = true;
+        }
+      } else if(intentos==2){
+        var dis3 =document.getElementById("palb2").getElementsByTagName('input');
         for (var d3 of dis3) {
             d3.disabled = true;
         }
-        var dis4 =document.getElementById("palb5").getElementsByTagName('input');
+        var dis4 =document.getElementById("palb3").getElementsByTagName('input');
         for (var d4 of dis4) {
-            d4.disabled = true;
+            d4.disabled = false;
         }
-  }
-  }
+      } else if(intentos==3){
+        var dis6 =document.getElementById("palb4").getElementsByTagName('input');
+        for (var d6 of dis6) {
+            d6.disabled = false;
+        }
+        var dis5 =document.getElementById("palb3").getElementsByTagName('input');
+        for (var d5 of dis5) {
+            d5.disabled = true;
+        }
+      } else if(intentos==4){
+        var dis6 =document.getElementById("palb4").getElementsByTagName('input');
+        for (var d6 of dis6) {
+            d6.disabled = true;
+        }
+        var dis7 =document.getElementById("palb5").getElementsByTagName('input');
+        for (var d7 of dis7) {
+            d7.disabled = false;
+        }
+      } else if(intentos>4){
+        var dis8 =document.getElementById("palb5").getElementsByTagName('input');
+        for (var d8 of dis8) {
+            d8.disabled = true;
+        }
+      }
     
 }
 function cerca(word, wordNumber){
   for (let i in palabraalea){
-    if(palabraalea[i]==word[i]){
-      document.getElementById("txt"+((wordNumber-1)*5+(parseInt(i)+1)).toString()).className="TXT2"
-    } else if (palabraalea.includes(word[i])){
-      document.getElementById("txt"+((wordNumber-1)*5+(parseInt(i)+1)).toString()).className="TXT3"
+    if(word.length()==5){
+      console.log(word  )
+      if(palabraalea[i]==word[i]){
+        document.getElementById("txt"+((wordNumber-1)*5+(parseInt(i)+1)).toString()).className="TXT2"
+      } else if (palabraalea.includes(word[i])){
+        document.getElementById("txt"+((wordNumber-1)*5+(parseInt(i)+1)).toString()).className="TXT3"
+      }
     }
   }
-  
 }
 
 function ganaste(plb){
