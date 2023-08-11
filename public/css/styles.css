@@ -247,3 +247,7 @@ color: white;
     outline: 0;
 }
 
+#logOut{
+    background-position-x: right;
+}
+

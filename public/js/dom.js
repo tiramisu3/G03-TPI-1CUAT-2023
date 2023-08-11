@@ -103,28 +103,6 @@ async function borrar(){
   
 }
 
-function ganaste(plb){
-  let a=((plb-1)*5)+1;
-  let b=plb*5;
-
-  for(let i=a;i<=b;i++){
-    hola="txt"+i;
-    document.getElementById(hola).className="TXT2";
-  }
-  console.log(document.getElementById(plb))
-  document.getElementById("Comprobar").innerHTML += `        
-        <div class="border">
-
-          <main id="mainGanaste" class="card">
-          <center><h3>GANASTE</h3></center>
-          <p>Ganaste a los ${intentos} intentos</p>
-          <p>Puntaje: ${puntaje}</p>
-
-          <img src="img/fuegos.gif" id="imageFuegos">
-          <img src="img/victory.png" id="imageFuegos">
-        </div>
-        <br>`;
-}
 
 let palabraalea={}
 
@@ -189,26 +167,31 @@ function comprobar(){
     let word5 = (letter21 +  letter22 + letter23 + letter24 + letter25).toUpperCase();
     let words=[word1,"word2","word3","word4","word5"]
     if (palabraalea == word1 ){
+      puntaje += 100
+      intentos +=1
       ganaste(1)
       intentos=6;
       alert("Correcto")
-      puntaje += 100
     }else if(palabraalea == word2){
+      puntaje += 80
       ganaste(2)
       intentos=6;
       alert("Correcto")
-      puntaje += 80
     }else if (palabraalea == word3){
+      puntaje += 60
       ganaste(3)
       intentos=6;
       alert("Correcto")
-      puntaje += 60
     }else if(palabraalea == word4){
+      puntaje += 40
       ganaste(4)
       intentos=6;
       alert("Correcto")
-      puntaje += 40
     }else if(palabraalea == word5){
+
+
+      puntaje += 20
+
       ganaste(5)
     }else{
       alert("incorrecto")
@@ -280,6 +263,40 @@ function cerca(word, wordNumber){
     }
   }
 }
+
+function ganaste(plb){
+  let a=((plb-1)*5)+1;
+  let b=plb*5;
+
+  for(let i=a;i<=b;i++){
+    hola="txt"+i;
+    document.getElementById(hola).className="TXT2";
+  }
+  console.log(document.getElementById(plb))
+  document.getElementById("Comprobar").innerHTML += `        
+    <br>
+    <div id="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">GANASTE</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" onclick="cerrarModal()">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>FELICITACIONES</p>
+          <p>Lo lograste en: ${intentos} intentos</p>
+          <p>Tu puntaje es de: ${puntaje} puntos</p>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>`;
+}
+
+
 function perdiste(){
   document.getElementById("Comprobar").innerHTML += ` 
          <br>
@@ -289,7 +306,7 @@ function perdiste(){
              <div class="modal-header">
                <h5 class="modal-title">PERDISTE</h5>
                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                 <span aria-hidden="true">&times;</span>
+                <span aria-hidden="true" onclick="cerrarModal()">&times;</span>
                </button>
              </div>
              <div class="modal-body">
@@ -301,7 +318,9 @@ function perdiste(){
          </div>
        </div>
         <br>`
-
+}
+function cerrarModal() {
+  document.getElementById("modal").innerHTML = ""
 }
 function borrar(){
   palabra= document.getElementById("word").value
@@ -406,5 +425,15 @@ async function eliminarUsuario(data) {
   catch (error) {
     console.error("Error:", error);
   }
+
+}
+
+function volverJugar(){
+  location.href = '/home'
+
+}
+
+function salir(){
+  location.href = '/volver'
 
 }
