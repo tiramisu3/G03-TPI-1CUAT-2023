@@ -247,7 +247,17 @@ color: white;
     outline: 0;
 }
 
-#logOut{
-    background-position-x: right;
+#wrapper {
+    display: flex;
+    justify-content: center;
 }
+#volverJugar {
+    display: inline-block;
+    width:120px;
+}
+#logOut {
+    display: inline-block;
+    width:120px;
+}
+
 
