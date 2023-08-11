@@ -134,6 +134,8 @@ async function palabra_elegida(){
     console.error("Error:", error);
   }
 }
+let puntaje=0;
+let intentos=0;
 function comprobar(){
     let letter1 = document.getElementById("txt1").value;
     let letter2 = document.getElementById("txt2").value;
@@ -165,48 +167,42 @@ function comprobar(){
     let letter24 = document.getElementById("txt24").value;
     let letter25 = document.getElementById("txt25").value;
     let word5 = (letter21 +  letter22 + letter23 + letter24 + letter25).toUpperCase();
-    let words=[word1,"word2","word3","word4","word5"]
+    let words=[word1,word2,word3,word4,word5]
     if (palabraalea == word1 ){
       puntaje += 100
       intentos +=1
       ganaste(1)
       intentos=6;
-      alert("Correcto")
     }else if(palabraalea == word2){
       puntaje += 80
+      intentos +=1
       ganaste(2)
       intentos=6;
-      alert("Correcto")
     }else if (palabraalea == word3){
       puntaje += 60
+      intentos +=1
       ganaste(3)
       intentos=6;
-      alert("Correcto")
     }else if(palabraalea == word4){
       puntaje += 40
+      intentos +=1
       ganaste(4)
       intentos=6;
-      alert("Correcto")
     }else if(palabraalea == word5){
-
-
       puntaje += 20
-
+      intentos +=1
       ganaste(5)
     }else{
-      alert("incorrecto")
       intentos += 1
       if (intentos == 5){
         perdiste()
       }
     }
-    for(i in words){
-      console.log(words)
-      cerca(words[i],i+1)
+    for(let i in words){
+      cerca(words[i], i)
     }
     let a=((intentos-1)*5)+1;//seguircon esto
     let b=intentos*5;
-  
       if (intentos == 1){
         var dis2 =document.getElementById("palb2").getElementsByTagName('input');
         for (var d2 of dis2) {
@@ -253,15 +249,17 @@ function comprobar(){
 }
 function cerca(word, wordNumber){
   for (let i in palabraalea){
-    if(word.length()==5){
-      console.log(word  )
+    if(word.length==5){
+      console.log(word)
       if(palabraalea[i]==word[i]){
-        document.getElementById("txt"+((wordNumber-1)*5+(parseInt(i)+1)).toString()).className="TXT2"
+        console.log(i)
+        document.getElementById("txt"+((wordNumber)*5+(parseInt(i)+1)).toString()).className="TXT2"
       } else if (palabraalea.includes(word[i])){
-        document.getElementById("txt"+((wordNumber-1)*5+(parseInt(i)+1)).toString()).className="TXT3"
+        document.getElementById("txt"+((wordNumber)*5+(parseInt(i)+1)).toString()).className="TXT3"
       }
     }
   }
+  console.log("cierra")
 }
 
 function ganaste(plb){
