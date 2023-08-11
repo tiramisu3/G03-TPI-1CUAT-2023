@@ -118,14 +118,15 @@ function ganaste(plb){
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">PERDISTE</h5>
+          <h5 class="modal-title">GANASTE</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true" onclick="cerrarModal()">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          <p>Utilizaste tus 5 intentos</p>
-          <p>La palabra era: ${palabraalea}</p>
+          <p>FELICITACIONES</p>
+          <p>Lo lograste en: ${intentos} intentos</p>
+          <p>Tu puntaje es de: ${puntaje} puntos</p>
         </div>
         </div>
       </div>
@@ -167,13 +168,12 @@ async function palabra_elegida(){
 var intentos = 0
 var puntaje = 0
 function comprobar(){
-  let intentos = 0
     let letter1 = document.getElementById("txt1").value;
     let letter2 = document.getElementById("txt2").value;
     let letter3 = document.getElementById("txt3").value;
     let letter4 = document.getElementById("txt4").value;
     let letter5 = document.getElementById("txt5").value;
-    let word1 = letter1 +  letter2 + letter3 + letter4 + letter5;
+    let word1 = (letter1 +  letter2 + letter3 + letter4 + letter5).toUpperCase();
     let letter6 = document.getElementById("txt6").value;
     let letter7 = document.getElementById("txt7").value;
     let letter8 = document.getElementById("txt8").value;
