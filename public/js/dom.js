@@ -103,6 +103,168 @@ async function borrar(){
   
 }
 
+
+
+let palabraalea={}
+
+let plabraalea = ""
+
+async function palabra_elegida(){
+  
+  try {
+    const response = await fetch("/randomWord", {
+      method: "POST", // or 'POST'
+      headers: {
+        "Content-Type": "application/json",
+      },
+     // body: JSON.stringify(data),
+    });
+    
+    //En result obtengo la respuesta
+    const result = await response.json();
+    console.log("Success:", result);
+
+    console.log(result)
+    palabraalea = result.word.palabras; 
+
+
+    palabraalea = result.word.palabras
+
+    console.log(palabraalea)
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
+let puntaje=0;
+let intentos=0;
+function comprobar(){
+    let letter1 = document.getElementById("txt1").value;
+    let letter2 = document.getElementById("txt2").value;
+    let letter3 = document.getElementById("txt3").value;
+    let letter4 = document.getElementById("txt4").value;
+    let letter5 = document.getElementById("txt5").value;
+    let word1 = (letter1 +  letter2 + letter3 + letter4 + letter5).toUpperCase();
+    let letter6 = document.getElementById("txt6").value;
+    let letter7 = document.getElementById("txt7").value;
+    let letter8 = document.getElementById("txt8").value;
+    let letter9 = document.getElementById("txt9").value;
+    let letter10 = document.getElementById("txt10").value;
+    let word2 = (letter6 +  letter7 + letter8 + letter9 + letter10).toUpperCase();
+    let letter11 = document.getElementById("txt11").value;
+    let letter12 = document.getElementById("txt12").value;
+    let letter13 = document.getElementById("txt13").value;
+    let letter14 = document.getElementById("txt14").value;
+    let letter15 = document.getElementById("txt15").value;
+    let word3 = (letter11 +  letter12 + letter13 + letter14 + letter15).toUpperCase();
+    let letter16 = document.getElementById("txt16").value;
+    let letter17 = document.getElementById("txt17").value;
+    let letter18 = document.getElementById("txt18").value;
+    let letter19 = document.getElementById("txt19").value;
+    let letter20 = document.getElementById("txt20").value;
+    let word4 = (letter16 +  letter17 + letter18 + letter19 + letter20).toUpperCase();
+    let letter21 = document.getElementById("txt21").value;
+    let letter22 = document.getElementById("txt22").value;
+    let letter23 = document.getElementById("txt23").value;
+    let letter24 = document.getElementById("txt24").value;
+    let letter25 = document.getElementById("txt25").value;
+    let word5 = (letter21 +  letter22 + letter23 + letter24 + letter25).toUpperCase();
+    let words=[word1,word2,word3,word4,word5]
+    if (palabraalea == word1 ){
+      puntaje += 100
+      intentos +=1
+      ganaste(1)
+      intentos=6;
+    }else if(palabraalea == word2){
+      puntaje += 80
+      intentos +=1
+      ganaste(2)
+      intentos=6;
+    }else if (palabraalea == word3){
+      puntaje += 60
+      intentos +=1
+      ganaste(3)
+      intentos=6;
+    }else if(palabraalea == word4){
+      puntaje += 40
+      intentos +=1
+      ganaste(4)
+      intentos=6;
+    }else if(palabraalea == word5){
+      puntaje += 20
+      intentos +=1
+      ganaste(5)
+    }else{
+      intentos += 1
+      if (intentos == 5){
+        perdiste()
+      }
+    }
+
+    for(let i in words){
+      cerca(words[i], i)
+    }
+    let a=((intentos-1)*5)+1;//seguircon esto
+
+    let b=intentos*5;
+      if (intentos == 1){
+        var dis2 =document.getElementById("palb2").getElementsByTagName('input');
+        for (var d2 of dis2) {
+            d2.disabled = false;
+        }
+        var dis1 =document.getElementById("palb1").getElementsByTagName('input');
+        for (var d1 of dis1) {
+            d1.disabled = true;
+        }
+      } else if(intentos==2){
+        var dis3 =document.getElementById("palb2").getElementsByTagName('input');
+        for (var d3 of dis3) {
+            d3.disabled = true;
+        }
+        var dis4 =document.getElementById("palb3").getElementsByTagName('input');
+        for (var d4 of dis4) {
+            d4.disabled = false;
+        }
+      } else if(intentos==3){
+        var dis6 =document.getElementById("palb4").getElementsByTagName('input');
+        for (var d6 of dis6) {
+            d6.disabled = false;
+        }
+        var dis5 =document.getElementById("palb3").getElementsByTagName('input');
+        for (var d5 of dis5) {
+            d5.disabled = true;
+        }
+      } else if(intentos==4){
+        var dis6 =document.getElementById("palb4").getElementsByTagName('input');
+        for (var d6 of dis6) {
+            d6.disabled = true;
+        }
+        var dis7 =document.getElementById("palb5").getElementsByTagName('input');
+        for (var d7 of dis7) {
+            d7.disabled = false;
+        }
+      } else if(intentos>4){
+        var dis8 =document.getElementById("palb5").getElementsByTagName('input');
+        for (var d8 of dis8) {
+            d8.disabled = true;
+        }
+      }
+    
+}
+function cerca(word, wordNumber){
+  for (let i in palabraalea){
+    if(word.length==5){
+      console.log(word)
+      if(palabraalea[i]==word[i]){
+        console.log(i)
+        document.getElementById("txt"+((wordNumber)*5+(parseInt(i)+1)).toString()).className="TXT2"
+      } else if (palabraalea.includes(word[i])){
+        document.getElementById("txt"+((wordNumber)*5+(parseInt(i)+1)).toString()).className="TXT3"
+      }
+    }
+  }
+  console.log("cierra")
+}
+
 function ganaste(plb){
   let a=((plb-1)*5)+1;
   let b=plb*5;
@@ -136,130 +298,6 @@ function ganaste(plb){
 }
 
 
-let palabraalea={}
-
-let plabraalea = ""
-
-async function palabra_elegida(){
-  
-  try {
-    const response = await fetch("/randomWord", {
-      method: "POST", // or 'POST'
-      headers: {
-        "Content-Type": "application/json",
-      },
-     // body: JSON.stringify(data),
-    });
-    
-    //En result obtengo la respuesta
-    const result = await response.json();
-    console.log("Success:", result);
-
-    console.log(result)
-    palabraalea = result.word.palabras; 
-
-
-    palabraalea = result.word.palabras
-
-    console.log(palabraalea)
-  } catch (error) {
-    console.error("Error:", error);
-  }
-}
-var intentos = 0
-var puntaje = 0
-function comprobar(){
-    let letter1 = document.getElementById("txt1").value;
-    let letter2 = document.getElementById("txt2").value;
-    let letter3 = document.getElementById("txt3").value;
-    let letter4 = document.getElementById("txt4").value;
-    let letter5 = document.getElementById("txt5").value;
-    let word1 = (letter1 +  letter2 + letter3 + letter4 + letter5).toUpperCase();
-    let letter6 = document.getElementById("txt6").value;
-    let letter7 = document.getElementById("txt7").value;
-    let letter8 = document.getElementById("txt8").value;
-    let letter9 = document.getElementById("txt9").value;
-    let letter10 = document.getElementById("txt10").value;
-    let word2 = (letter6 +  letter7 + letter8 + letter9 + letter10).toUpperCase();
-    let letter11 = document.getElementById("txt11").value;
-    let letter12 = document.getElementById("txt12").value;
-    let letter13 = document.getElementById("txt13").value;
-    let letter14 = document.getElementById("txt14").value;
-    let letter15 = document.getElementById("txt15").value;
-    let word3 = (letter11 +  letter12 + letter13 + letter14 + letter15).toUpperCase();
-    let letter16 = document.getElementById("txt16").value;
-    let letter17 = document.getElementById("txt17").value;
-    let letter18 = document.getElementById("txt18").value;
-    let letter19 = document.getElementById("txt19").value;
-    let letter20 = document.getElementById("txt20").value;
-    let word4 = (letter16 +  letter17 + letter18 + letter19 + letter20).toUpperCase();
-    let letter21 = document.getElementById("txt21").value;
-    let letter22 = document.getElementById("txt22").value;
-    let letter23 = document.getElementById("txt23").value;
-    let letter24 = document.getElementById("txt24").value;
-    let letter25 = document.getElementById("txt25").value;
-    let word5 = (letter21 +  letter22 + letter23 + letter24 + letter25).toUpperCase();
-    if (palabraalea == word1 ){
-      ganaste(1)
-      alert("Correcto")
-      puntaje += 100
-    }else if(palabraalea == word2){
-      ganaste(2)
-      alert("Correcto")
-      puntaje += 80
-    }else if (palabraalea == word3){
-      ganaste(3)
-      alert("Correcto")
-      puntaje += 60
-    }else if(palabraalea == word4){
-      ganaste(4)
-      alert("Correcto")
-      puntaje += 40
-    }else if(palabraalea == word5){
-      ganaste(5)
-      puntaje += 20
-    }else{
-      alert("incorrecto")
-      intentos += 1
-      if (intentos == 5){
-        perdiste()
-      }
-    }
-   let a=((intentos)*5)+1;//seguircon esto
-    let b=intentos*5;
-  
-    for(let i=a;i<=b;i++){
-      if (intentos == 0){
-        var dis =document.getElementById("palb2").getElementsByTagName('input');
-        for (var d of dis) {
-            d.disabled = true;
-        }
-        var dis2 =document.getElementById("palb3").getElementsByTagName('input');
-        for (var d2 of dis2) {
-            d2.disabled = true;
-        }
-        var dis3 =document.getElementById("palb4").getElementsByTagName('input');
-        for (var d3 of dis3) {
-            d3.disabled = true;
-        }
-        var dis4 =document.getElementById("palb5").getElementsByTagName('input');
-        for (var d4 of dis4) {
-            d4.disabled = true;
-        }
-  }
-  }
-    
-}
-function cerca(word, wordNumber){
-  for (let i in palabraalea){
-    if(palabraalea[i]==word[i]){
-      document.getElementById("txt"+((wordNumber-1)*5+(parseInt(i)+1)).toString()).className="TXT2"
-    } else if (palabraalea.includes(word[i])){
-      document.getElementById("txt"+((wordNumber-1)*5+(parseInt(i)+1)).toString()).className="TXT3"
-    }
-  }
-  
-}
 function perdiste(){
   document.getElementById("Comprobar").innerHTML += ` 
          <br>
