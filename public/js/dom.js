@@ -135,6 +135,7 @@ function ganaste(plb){
   <br>`;
 }
 
+
 let palabraalea={}
 
 let plabraalea = ""
@@ -224,7 +225,7 @@ function comprobar(){
         perdiste()
       }
     }
-    let a=((intentos)*5)+1;//seguircon esto
+   let a=((intentos)*5)+1;//seguircon esto
     let b=intentos*5;
   
     for(let i=a;i<=b;i++){
