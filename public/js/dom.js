@@ -104,6 +104,7 @@ async function borrar(){
 }
 
 
+
 let palabraalea={}
 
 let plabraalea = ""
@@ -198,10 +199,12 @@ function comprobar(){
         perdiste()
       }
     }
+
     for(let i in words){
       cerca(words[i], i)
     }
     let a=((intentos-1)*5)+1;//seguircon esto
+
     let b=intentos*5;
       if (intentos == 1){
         var dis2 =document.getElementById("palb2").getElementsByTagName('input');

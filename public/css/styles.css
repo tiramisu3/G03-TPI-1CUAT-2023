@@ -247,17 +247,26 @@ color: white;
     outline: 0;
 }
 
-#wrapper {
-    display: flex;
-    justify-content: center;
-}
+
 #volverJugar {
     display: inline-block;
     width:120px;
 }
+#wrapper {
+    display: flex;
+    justify-content: center;
+}
 #logOut {
     display: inline-block;
     width:120px;
+}
+#logOut2 {
+    float: right;
+    width:60px;
+    margin-right: 1%;
+}
+#adminHeader{
+    margin-left: 13%;
 }
 
 
