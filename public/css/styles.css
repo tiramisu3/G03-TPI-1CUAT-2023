@@ -252,6 +252,10 @@ color: white;
     display: inline-block;
     width:120px;
 }
+#wrapper {
+    display: flex;
+    justify-content: center;
+}
 #logOut {
     display: inline-block;
     width:120px;
