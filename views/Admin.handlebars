@@ -10,7 +10,7 @@
             <main id="mainAdmin1" class="card" >
                 
                 <div id="elegirpalabra" method="POST">
-                    <h3>Editar palabras</h3>
+                    <h3>Borrar palabras</h3>
                         <div id="seleccion">
                             <select name="select" id="elegirPalabra">
                                 <option value="value1" selected> Elegir Palabra</option>
@@ -35,9 +35,7 @@
                     <div>
                     </div>
                 </div>
-                <script>
-                    mostrar();
-                </script>
+                
             </main>
         </div>
         <div class="col-sm-6">
@@ -55,12 +53,31 @@
                         <div>
                             <input type="submit" class="btn btn-primary" id = "botonEliminar" value="Eliminar" onclick="borrarUsuario()">
                         </div>
-                </main>
             </main>
         </div>
     </div>
-
+    <main id="mainAdmin3" class="card" >
+        <div class="col-sm-6 mb-3 mb-sm-0">
+            <div id="elegirpalabra" method="POST">
+                <h3>Editar palabras</h3>
+                    <div id="seleccion2">
+                        <select name="select" id="elegirPalabra">
+                            <option value="value1" selected> Elegir Palabra</option>
+                            <option value="value2"> </option>
+                        </select>
+                    </div>
+                    <br>
+                <div>
+                    <input type="text" class="form-control" id="cambiarPalabra" name="cambio" value="" placeholder="Ingrese la palabra">
+                    <input type="submit" class="btn btn-primary" id = "editarPalabra" value="Editar" onclick="editar()">
+                </div>
+            </div>
+        </div>  
+    </main>
 </body>
+<script>
+    mostrar();
+</script>
 <br>
 <footer id="footer2">
     <h6>Colegio Pio IX</h6>

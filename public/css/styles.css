@@ -268,5 +268,19 @@ color: white;
 #adminHeader{
     margin-left: 13%;
 }
+#mainAdmin3{
+    margin-top: 100px;
+    margin-right: 17.5% ;
+    margin-left: 17.5% ;
+    min-width: 100px;
+    border-radius: 10% ;
+}
+#editarPalabra{
+    margin-top: 10px;
+    background-color: #808080; 
+    border-color: #1a1a1a;
+    color:#1a1a1a;
+
+}
 
 

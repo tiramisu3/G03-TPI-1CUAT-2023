@@ -171,7 +171,7 @@ app.put('/eliminar', async function(req, res){
 
     let validar = true
     //Petición POST con URL = "/login"
-    console.log("Soy un pedido POST", req.body); 
+    console.log("Soy un pedido PUT", req.body); 
     let palabras= await MySQL.realizarQuery("SELECT * FROM Palabras")
     let entre = false
     console.log(req.body.pregunta)
@@ -213,7 +213,6 @@ app.put('/agregar', async function(req, res){
 app.put('/eliminarUsuario', async function(req, res){
 
     let validar = true
-    //Petición POST con URL = "/login"
     console.log("Soy un pedido PUT", req.body); 
     let usuarios= await MySQL.realizarQuery("SELECT * FROM Usuarios")
     let entre = false
@@ -246,4 +245,47 @@ app.get('/volver', function(req, res) {
     console.log("Soy un pedido GET", req.body); //En req.body vamos a obtener el objeto con los parámetros enviados desde el frontend por método DELETE
     res.render('login', null)
     ;
+});
+
+app.put('/cambiarPalabra', async function(req, res) {
+    console.log("Soy un pedido PUT", req.body);
+    let validar = true
+    let palabras= await MySQL.realizarQuery("SELECT * FROM Palabras")
+    let entre = false
+    console.log(req.body.borrar)
+    for (let i in palabras){
+        if (palabras[i].palabras == req.body.borrar){
+            entre = true
+            respuesta = await MySQL.realizarQuery(`DELETE FROM Palabras WHERE palabras = "${req.body.borrar}";`)
+            for (let i in palabras){
+                if (palabras[i].palabras == req.body.agregar){
+                    validar = false
+                    res.send({validar: false});
+                }
+               
+            }
+            if (validar == true){
+                sumar = await MySQL.realizarQuery (`INSERT INTO Palabras VALUES("${req.body.agregar}")`)    
+                
+                res.send({validar: true});
+        
+            }
+                
+            
+            
+        }
+    }
+    if (entre == false) {
+        res.send({validar:false})    
+    }
+    
+
+});
+
+app.post('/tabla', async function(req, res){
+    //Petición GET con URL = "/login"
+    console.log("Soy un pedido POST", req.query); 
+    let usuarios= await MySQL.realizarQuery("SELECT * FROM Usuarios")
+    //En req.query vamos a obtener el objeto con los parámetros enviados desde el frontend por método GET
+    res.render('Tablas', {usuario:usuarios}); //Renderizo página "home" sin pasar ningún objeto a Handlebars
 });
