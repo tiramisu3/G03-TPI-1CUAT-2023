@@ -79,6 +79,7 @@ async function mostrar() {
     }
     html += `</select>`;
     document.getElementById("seleccion").innerHTML = html;
+
     let html2 = `
         <select name="select" id="user">
           <option value="value1" selected> Elegir Usuario</option>`
@@ -92,6 +93,20 @@ async function mostrar() {
     html += `</select>`;
     document.getElementById("seleccionUsuario").innerHTML = html2;
     
+    let html3 = `
+        <select name="select" id="wordEdit">
+          <option value="value1" selected> Elegir Palabra</option>`
+    for (let i in vector){
+      html3+=
+      `
+          <option>${vector[i].palabras}</option>
+        
+      `;
+    }
+    html3 += `</select>`;
+    document.getElementById("seleccion2").innerHTML = html3;
+
+
   }
     catch (error) {
       console.error("Error:", error);
@@ -99,9 +114,6 @@ async function mostrar() {
   }
 }
 
-async function borrar(){
-  
-}
 
 
 
@@ -289,7 +301,13 @@ function ganaste(plb){
           <p>FELICITACIONES</p>
           <p>Lo lograste en: ${intentos} intentos</p>
           <p>Tu puntaje es de: ${puntaje} puntos</p>
+          <form action="/tabla" method="POST" class="container-sm">
+            <div class="mb-3 form-check">
+                <input type="submit" class="btn btn-primary" value="Ingresar a las tablas">
+            </div>
+          </form>
         </div>
+        
         </div>
       </div>
     </div>
@@ -403,7 +421,7 @@ eliminarUsuario(data)
 
 async function eliminarUsuario(data) {
   //putJSON() es solo el nombre de esta funcion que lo pueden cambiar    
-
+  console.log(data)
   try {
     const response = await fetch("/eliminarUsuario", {
       method: "PUT", // or 'POST'
@@ -436,5 +454,47 @@ function volverJugar(){
 
 function salir(){
   location.href = '/volver'
+
+}
+
+function editar(){
+  palabraBorrar = document.getElementById("wordEdit").value
+  console.log(palabraBorrar)
+  palabraNueva = document.getElementById("cambiarPalabra").value
+  console.log(palabraNueva)
+
+
+  let data = {
+    borrar: palabraBorrar,
+    agregar: palabraNueva
+  }
+  editarPalabra(data)
+}
+
+async function editarPalabra(data) {
+  //putJSON() es solo el nombre de esta funcion que lo pueden cambiar    
+
+  try {
+    const response = await fetch("/cambiarPalabra", {
+      method: "PUT", // or 'POST'
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    const result = await response.json();
+    console.log("editar ok ", result);
+
+    if (result.validar == false) {
+      alert("No se pudo borrar la palabra")
+    }
+    else {
+     console.log("palabra borrada")
+     location.href = '/Admin'
+  } 
+}
+  catch (error) {
+    console.error("Error:", error);
+  }
 
 }
