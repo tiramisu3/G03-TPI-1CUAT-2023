@@ -53,7 +53,7 @@ app.get('/', function(req, res)
     res.render('login', null); //Renderizo página "home" sin pasar ningún objeto a Handlebars
 });
 
-
+mailLogueado= ""
 
 
 app.post('/login', async function(req, res)
@@ -98,9 +98,12 @@ app.put('/login', async function(req, res) {
     //Petición PUT con URL = "/login"
     console.log("Soy un pedido PUT", req.body); //En req.body vamos a obtener el objeto con los parámetros enviados desde el frontend por método PUT
     let respuesta= await MySQL.realizarQuery(` SELECT * FROM Usuarios WHERE nom_usuario= "${req.body.user}" AND contraseña = "${req.body.pass}"`)
-
+    console.log(respuesta[0].mail)
     if (respuesta.length > 0) {
-        res.send({validar: true, esadmin:respuesta[0].esadmin})    
+        res.send({validar: true, esadmin:respuesta[0].esadmin})
+        mailLogueado = respuesta[0].mail
+        console.log(mailLogueado)
+    
     }
     else{
         res.send({validar:false})    
@@ -141,7 +144,9 @@ app.post('/nuevousuario', async function(req, res)
         }
     }
     if (validar==true) {
-        await MySQL.realizarQuery (`INSERT INTO Usuarios VALUES("${req.body.mail}", "${req.body.nom_usuario}", "${req.body.contraseña}",${false})`)    
+        await MySQL.realizarQuery (`INSERT INTO Usuarios VALUES("${req.body.mail}", "${req.body.nom_usuario}", "${req.body.contraseña}",${false},"${0}")`) 
+        mailLogueado = req.body.mail
+        console.log(mailLogueado)   
         res.render('home', { mensaje: "Hola mundo!", usuario: req.body.nom_usuario}); //Renderizo página "home" enviando un objeto de 2 parámetros a Handlebars
     }
     else if (validar==false){
@@ -289,3 +294,21 @@ app.post('/tabla', async function(req, res){
     //En req.query vamos a obtener el objeto con los parámetros enviados desde el frontend por método GET
     res.render('Tablas', {usuario:usuarios}); //Renderizo página "home" sin pasar ningún objeto a Handlebars
 });
+
+app.put('/agregarPuntos', async function(req, res){
+    console.log("Soy un pedido PUT", req.query);
+    validar = true
+    let usuarios = await MySQL.realizarQuery("SELECT * FROM Usuarios")
+    for (let i in usuarios){
+        if (usuarios[i].mail == mailLogueado){
+            añadirPuntos = await MySQL.realizarQuery(`SELECT SUM(${req.body.masPuntaje}) AS puntaje FROM Usuarios`);
+            res.send({validar: true});
+        }
+        else {
+            res.send({validar: false});
+
+        }
+    }
+
+});
+

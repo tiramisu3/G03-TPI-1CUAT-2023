@@ -185,26 +185,31 @@ function comprobar(){
       puntaje += 100
       intentos +=1
       ganaste(1)
+      puntos(puntaje)
       intentos=6;
     }else if(palabraalea == word2){
       puntaje += 80
       intentos +=1
       ganaste(2)
+      puntos(puntaje)
       intentos=6;
     }else if (palabraalea == word3){
       puntaje += 60
       intentos +=1
       ganaste(3)
+      puntos(puntaje)
       intentos=6;
     }else if(palabraalea == word4){
       puntaje += 40
       intentos +=1
       ganaste(4)
+      puntos(puntaje)
       intentos=6;
     }else if(palabraalea == word5){
       puntaje += 20
       intentos +=1
       ganaste(5)
+      puntos(puntaje)
     }else{
       intentos += 1
       if (intentos == 5){
@@ -300,7 +305,6 @@ function ganaste(plb){
         <div class="modal-body">
           <p>FELICITACIONES</p>
           <p>Lo lograste en: ${intentos} intentos</p>
-          <p>Tu puntaje es de: ${puntaje} puntos</p>
           <form action="/tabla" method="POST" class="container-sm">
             <div class="mb-3 form-check">
                 <input type="submit" class="btn btn-primary" value="Ingresar a las tablas">
@@ -497,4 +501,39 @@ async function editarPalabra(data) {
     console.error("Error:", error);
   }
 
+}
+
+function puntos(puntaje){
+    sumar= puntaje;
+    console.log(sumar)
+    let data = {
+      masPuntaje: sumar
+    }
+    console.log(data.masPuntaje)
+  puntosUsuario(data)
+}
+
+async function puntosUsuario(data){
+  console.log(data.masPuntaje)
+
+  try {
+    const response = await fetch("/agregarPuntos", {
+      method: "PUT", // or 'POST'
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    const result = await response.json();
+    console.log("sumar ok ", result);
+    if (result.validar == false) {
+      alert("Error")
+    }
+    else {
+     console.log("Exito")
+    } 
+  }
+  catch (error) {
+    console.error("Error:", error);
+  }
 }
