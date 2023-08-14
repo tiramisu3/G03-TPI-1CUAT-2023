@@ -263,19 +263,29 @@ function comprobar(){
     
 }
 function cerca(word, wordNumber){
-  for (let i in palabraalea){
-    if(word.length==5){
-      console.log(word)
+  if(word.length==5){
+    let ussable=[];
+    for(i in 5){
+      ussable.push(true)
+      console.log(ussable)
+    }
+    for (let i in palabraalea){
       if(palabraalea[i]==word[i]){
-        console.log(i)
+        ussable[i]=false;
         document.getElementById("txt"+((wordNumber)*5+(parseInt(i)+1)).toString()).className="TXT2"
-      } else if (palabraalea.includes(word[i])){
-        document.getElementById("txt"+((wordNumber)*5+(parseInt(i)+1)).toString()).className="TXT3"
       }
     }
+    for (let i in palabraalea){
+      if (ussable[i]==true) {
+        if (palabraalea.includes(word[i])){
+          document.getElementById("txt"+((wordNumber)*5+(parseInt(i)+1)).toString()).className="TXT3"
+        } 
+      } 
+    }
   }
-  console.log("cierra")
 }
+
+
 
 function ganaste(plb){
   let a=((plb-1)*5)+1;
