@@ -296,19 +296,17 @@ app.post('/tabla', async function(req, res){
 });
 
 app.put('/agregarPuntos', async function(req, res){
-    console.log("Soy un pedido PUT", req.query);
+    console.log("Soy un pedido PUT /agregarPuntos", req.query);
     validar = true
-    let usuarios = await MySQL.realizarQuery("SELECT * FROM Usuarios")
-    for (let i in usuarios){
-        if (usuarios[i].mail == mailLogueado){
-            añadirPuntos = await MySQL.realizarQuery(`SELECT SUM(${req.body.masPuntaje}) AS puntaje FROM Usuarios`);
-            res.send({validar: true});
-        }
-        else {
-            res.send({validar: false});
-
-        }
-    }
-
+    console.log(mailLogueado)
+    let usuario = await MySQL.realizarQuery(`SELECT * FROM Usuarios WHERE mail = "${mailLogueado}"`)// traer el puntajer del usuario logeado
+    console.log(usuario[0].puntaje)
+    usuario[0].puntaje = usuario[0].puntaje + req.body.masPuntaje 
+    console.log(usuario[0])
+    console.log(usuario[0].puntaje)
+    añadirPuntos = await MySQL.realizarQuery(`INSERT INTO Usuarios (puntaje) VALUES(${usuario[0].puntaje}) WHERE mail="${mailLogueado}";`);
+    res.send({validar: true});
+        
+    
 });
 
