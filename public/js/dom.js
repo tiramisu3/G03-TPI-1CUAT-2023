@@ -262,6 +262,22 @@ function cerca(word, wordNumber){
   console.log("cierra")
 }
 
+ /* var pares = prompt("Ingrese secuencia de letras");
+var caracteresRepetidos = function(str) {
+  for (var i=0; i<str.length; i++) {
+    if ( str.indexOf(str[i]) !== str.lastIndexOf(str[i]) ) {
+      return false; // hay repetecion
+    }
+  }
+return true; // no hay repeticion
+}
+
+console.log( caracteresRepetidos(pares) ); */
+if (caracteresRepetidos==true) {
+  
+}
+
+
 function ganaste(plb){
   let a=((plb-1)*5)+1;
   let b=plb*5;
