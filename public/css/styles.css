@@ -283,4 +283,37 @@ color: white;
 
 }
 
+#mainTabla1 {
+    margin-top: 100px;
+    margin-left: 25%;
+    min-width: 100px;
+    border-radius: 10% ;
+}
+#mainTabla2 {
+    margin-top: 100px;
+    margin-right: 20% ;
+    min-width: 100px;
+    border-radius: 10% ;
+}
+#Tabla {
+    text-align: justify;
+    display: block;
+    padding: 14px 32px;
 
+}
+#Felicidades {
+    text-align: justify;
+    display: block;
+    padding: 14px 32px;
+
+}
+#puntaje{
+    font-size: 16px;
+}
+
+#puntosTh{
+    padding: 0 25px;
+}
+#puntos{
+    padding: 0 25px;
+}

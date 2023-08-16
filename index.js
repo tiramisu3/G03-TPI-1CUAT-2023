@@ -295,7 +295,7 @@ app.post('/tabla', async function(req, res){
     res.render('Tablas', {usuario:usuarios}); //Renderizo página "home" sin pasar ningún objeto a Handlebars
 });
 
-app.put('/agregarPuntos', async function(req, res){
+/*app.put('/agregarPuntos', async function(req, res){
     console.log("Soy un pedido PUT /agregarPuntos", req.query);
     validar = true
     console.log(mailLogueado)
@@ -308,5 +308,5 @@ app.put('/agregarPuntos', async function(req, res){
     res.send({validar: true});
         
     
-});
+});*/
 

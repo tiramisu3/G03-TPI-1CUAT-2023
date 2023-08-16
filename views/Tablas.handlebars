@@ -1,14 +1,62 @@
-<h2>TABLA DE USUARIOS LOL</h2>
-<table>
-    <tr>
-        <th>Usuario</th>
-    </tr>   
-    
-    {{#each usuario}}
-    <tr> 
-        <td>{{this.nom_usuario}}</td>
-        <td>{{this.puntaje}}</td>
-    </tr>
-    {{/each}}
-    
-</table>
+<br>
+<center><h2>Tabla de Puntos</h2></center>
+
+<body id="bodyAdmin">
+    <div class="row">
+        <div class="col-sm-6 mb-3 mb-sm-0">
+            <main id="mainTabla1" class="card" >
+                <div id="Tabla">
+                    <h2>Tablas</h2  >
+                    <center><div id="puntaje">
+                    <table>
+                    <tr>
+                        <th>Usuario</th>
+                        <th id="puntosTh">Puntos</th>
+                    </tr>   
+
+                    {{#each usuario}}
+                    <tr> 
+                        <td>{{this.nom_usuario}}</td>
+                        <td id="puntos">{{this.puntaje}}</td>
+                    </tr>
+                    {{/each}}
+
+                    </table>
+                    <br>
+                    </div></center> 
+                </div>
+                    <div id="imagen">
+                        <img src="https://img.freepik.com/vector-premium/podio-ganadores-copas-oro-plata-bronce-estilo-dibujos-animados-plana_163786-344.jpg?w=2000" width="400" height="400">
+                    </div>               
+            </main>
+            
+        </div>
+        <div class="col-sm-6">
+            <main id="mainTabla2" class="card" >                    
+                    <div id="Felicidades">
+                        <h3>¡Felicidades!</h3>
+                            <div>
+                                <p>
+                                    Has logrado superar nuestro juego, esperamos plenamente que lo hayas disfrutado hayas podido quedarte con algún conocimiento
+                                </p>
+                                <p>
+                                    Como grupo creemos que los ODS son una propuesta muy interesante, con desafíos que nos afectan a todas las personas, sin importar nuestra nacionalidad, etnia o cultura. Por eso mismo, la difusión de los mismos es clave, tanto para fomentar o criticar el no cumpliento de los objetivos
+                                </p>
+                                <p>
+                                    Grupo: 03
+                                    Alumnos: Fausto Amiano, Nicolás Basile, Isabella Feroce, Matías Pico, Ciro Rosenthal
+                                    Profesores: Nicolás Facón, Martín Giambroni, Martín Rivas, Felipe Vázquez
+                                    Curso: 5to "A" Informática
+                                    Colegio: Pio IX
+                                </p>
+                            </div>
+            </main>
+        </div>
+    </div>
+    <br>
+</body>
+
+<footer id="footer2">
+    <h6>Colegio Pio IX</h6>
+    <p>Primer proyecto Interdisciplinario - Grupo 3 - Amiano, Basile, Feroce, Rosenthal, Pico</p>
+</footer>
