@@ -90,7 +90,7 @@ async function mostrar() {
         
       `;
     }
-    html += `</select>`;
+    html2 += `</select>`;
     document.getElementById("seleccionUsuario").innerHTML = html2;
     
     let html3 = `
@@ -106,7 +106,19 @@ async function mostrar() {
     html3 += `</select>`;
     document.getElementById("seleccion2").innerHTML = html3;
 
-
+    let html4 = `
+        <select name="select" id="user2">
+          <option value="value1" selected> Elegir Usuario</option>`
+    for (let i in vector2){
+      html4+=
+      `
+          <option>${vector2[i].nom_usuario}</option>
+        
+      `;
+    }
+    html4 += `</select>`;
+    document.getElementById("seleccionUsuario2").innerHTML = html4;
+    
   }
     catch (error) {
       console.error("Error:", error);
@@ -536,4 +548,46 @@ async function puntosUsuario(data){
   catch (error) {
     console.error("Error:", error);
   }
+}
+
+function jugar(){
+  location.href = '/jugardenuevo'
+
+}
+
+function borrarPuntaje(){
+  usuario= document.getElementById("user2").value
+  console.log(usuario)
+  let data = {
+    pregunta: usuario
+  }
+eliminarUsuario(data)
+}
+
+async function eliminarPuntaje(data) {
+  //putJSON() es solo el nombre de esta funcion que lo pueden cambiar    
+  console.log(data)
+  try {
+    const response = await fetch("/eliminarPuntaje", {
+      method: "PUT", // or 'POST'
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    const result = await response.json();
+    console.log("borrar ok ", result);
+
+    if (result.validar == false) {
+      alert("No se pudo borrar el puntaje")
+    }
+    else {
+     console.log("Puntaje borrado")
+     location.href = '/Admin'
+  } 
+}
+  catch (error) {
+    console.error("Error:", error);
+  }
+
 }

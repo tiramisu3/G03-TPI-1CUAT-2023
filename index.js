@@ -238,6 +238,29 @@ app.put('/eliminarUsuario', async function(req, res){
     
 });
 
+app.put('/eliminarPuntaje', async function(req, res){
+
+    let validar = true
+    console.log("Soy un pedido PUT", req.body); 
+    let usuarios= await MySQL.realizarQuery("SELECT * FROM Usuarios")
+    let entre = false
+    console.log(req.body.pregunta)
+    for (let i in usuarios){
+        if (usuarios[i].nom_usuario == req.body.pregunta){
+            entre = true
+            respuesta = await MySQL.realizarQuery(`DELETE puntaje FROM Usuarios WHERE nom_usuario = "${req.body.pregunta}";`)
+
+            res.send({validar: true})    
+            
+            
+        }
+    }
+    if (entre == false) {
+        res.send({validar:false})    
+    }
+    
+});
+
 app.get('/home', function(req, res) {
     //Petición DELETE con URL = "/login"
     console.log("Soy un pedido GET", req.body); //En req.body vamos a obtener el objeto con los parámetros enviados desde el frontend por método DELETE
@@ -249,6 +272,13 @@ app.get('/volver', function(req, res) {
     //Petición DELETE con URL = "/login"
     console.log("Soy un pedido GET", req.body); //En req.body vamos a obtener el objeto con los parámetros enviados desde el frontend por método DELETE
     res.render('login', null)
+    ;
+});
+
+app.get('/jugardenuevo', function(req, res) {
+    //Petición DELETE con URL = "/login"
+    console.log("Soy un pedido GET", req.body); //En req.body vamos a obtener el objeto con los parámetros enviados desde el frontend por método DELETE
+    res.render('home', null)
     ;
 });
 
@@ -308,5 +338,5 @@ app.post('/tabla', async function(req, res){
     res.send({validar: true});
         
     
-});*/
-
+});
+*/

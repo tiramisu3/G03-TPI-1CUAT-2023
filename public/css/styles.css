@@ -317,3 +317,19 @@ color: white;
 #puntos{
     padding: 0 25px;
 }
+
+#again {
+    float: right;
+    margin-right: 1%;
+}
+
+#tablaHeader{
+    margin-left: 13%;
+}
+
+#botonEliminarPuntaje {
+    margin-top: 10px;
+    background-color: #808080; 
+    border-color: #1a1a1a;
+    color:#1a1a1a;
+}
