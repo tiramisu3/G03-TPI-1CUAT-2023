@@ -90,7 +90,7 @@ async function mostrar() {
         
       `;
     }
-    html += `</select>`;
+    html2 += `</select>`;
     document.getElementById("seleccionUsuario").innerHTML = html2;
     
     let html3 = `
@@ -106,7 +106,19 @@ async function mostrar() {
     html3 += `</select>`;
     document.getElementById("seleccion2").innerHTML = html3;
 
-
+    let html4 = `
+        <select name="select" id="user2">
+          <option value="value1" selected> Elegir Usuario</option>`
+    for (let i in vector2){
+      html4+=
+      `
+          <option>${vector2[i].nom_usuario}</option>
+        
+      `;
+    }
+    html4 += `</select>`;
+    document.getElementById("seleccionUsuario2").innerHTML = html4;
+    
   }
     catch (error) {
       console.error("Error:", error);
@@ -185,26 +197,31 @@ function comprobar(){
       puntaje += 100
       intentos +=1
       ganaste(1)
+      puntos(puntaje)
       intentos=6;
     }else if(palabraalea == word2){
       puntaje += 80
       intentos +=1
       ganaste(2)
+      puntos(puntaje)
       intentos=6;
     }else if (palabraalea == word3){
       puntaje += 60
       intentos +=1
       ganaste(3)
+      puntos(puntaje)
       intentos=6;
     }else if(palabraalea == word4){
       puntaje += 40
       intentos +=1
       ganaste(4)
+      puntos(puntaje)
       intentos=6;
     }else if(palabraalea == word5){
       puntaje += 20
       intentos +=1
       ganaste(5)
+      puntos(puntaje)
     }else{
       intentos += 1
       if (intentos == 5){
@@ -310,7 +327,6 @@ function ganaste(plb){
         <div class="modal-body">
           <p>FELICITACIONES</p>
           <p>Lo lograste en: ${intentos} intentos</p>
-          <p>Tu puntaje es de: ${puntaje} puntos</p>
           <form action="/tabla" method="POST" class="container-sm">
             <div class="mb-3 form-check">
                 <input type="submit" class="btn btn-primary" value="Ingresar a las tablas">
@@ -500,6 +516,83 @@ async function editarPalabra(data) {
     }
     else {
      console.log("palabra borrada")
+     location.href = '/Admin'
+  } 
+}
+  catch (error) {
+    console.error("Error:", error);
+  }
+
+}
+
+function puntos(puntaje){
+    sumar= puntaje;
+    console.log(sumar)
+    let data = {
+      masPuntaje: sumar
+    }
+    console.log(data.masPuntaje)
+  puntosUsuario(data)
+}
+
+async function puntosUsuario(data){
+  console.log(data.masPuntaje)
+
+  try {
+    const response = await fetch("/agregarPuntos", {
+      method: "PUT", // or 'POST'
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    const result = await response.json();
+    console.log("sumar ok ", result);
+    if (result.validar == false) {
+      alert("Error")
+    }
+    else {
+     console.log("Exito")
+    } 
+  }
+  catch (error) {
+    console.error("Error:", error);
+  }
+}
+
+function jugar(){
+  location.href = '/jugardenuevo'
+
+}
+
+function borrarPuntaje(){
+  usuario= document.getElementById("user2").value
+  console.log(usuario)
+  let data = {
+    pregunta: usuario
+  }
+eliminarUsuario(data)
+}
+
+async function eliminarPuntaje(data) {
+  //putJSON() es solo el nombre de esta funcion que lo pueden cambiar    
+  console.log(data)
+  try {
+    const response = await fetch("/eliminarPuntaje", {
+      method: "PUT", // or 'POST'
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    const result = await response.json();
+    console.log("borrar ok ", result);
+
+    if (result.validar == false) {
+      alert("No se pudo borrar el puntaje")
+    }
+    else {
+     console.log("Puntaje borrado")
      location.href = '/Admin'
   } 
 }
