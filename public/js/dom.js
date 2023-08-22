@@ -91,7 +91,7 @@ async function mostrar() {
       `;
     }
     html2 += `</select>`;
-    document.getElementById("seleccionUsuario").innerHTML = html2;
+    document.getElementById("seleccionUsuario2").innerHTML = html2;
     
     let html3 = `
         <select name="select" id="wordEdit">
@@ -106,28 +106,12 @@ async function mostrar() {
     html3 += `</select>`;
     document.getElementById("seleccion2").innerHTML = html3;
 
-    let html4 = `
-        <select name="select" id="user2">
-          <option value="value1" selected> Elegir Usuario</option>`
-    for (let i in vector2){
-      html4+=
-      `
-          <option>${vector2[i].nom_usuario}</option>
-        
-      `;
-    }
-    html4 += `</select>`;
-    document.getElementById("seleccionUsuario2").innerHTML = html4;
-    
   }
     catch (error) {
       console.error("Error:", error);
     
   }
 }
-
-
-
 
 let palabraalea={}
 
@@ -543,6 +527,7 @@ async function puntosUsuario(data){
     }
     else {
      console.log("Exito")
+     location.href = '/recargarTabla'
     } 
   }
   catch (error) {
@@ -556,12 +541,12 @@ function jugar(){
 }
 
 function borrarPuntaje(){
-  usuario= document.getElementById("user2").value
+  usuario= document.getElementById("user").value
   console.log(usuario)
   let data = {
     pregunta: usuario
   }
-eliminarUsuario(data)
+  eliminarUsuario(data)
 }
 
 async function eliminarPuntaje(data) {
