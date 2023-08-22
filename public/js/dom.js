@@ -256,34 +256,60 @@ function cerca(word, wordNumber){
     for (let i in palabraalea) {
       if(!(arrayCaracteresP.includes(palabraalea[i]))){
         arrayCaracteresP.push(palabraalea[i])
-        arrayNumCaracteresP.push(palabraalea.match(new RegExp(palabraalea[i],"gi").length))
+        numPalabraalea = arrayNumCaracteresP.push(palabraalea.match(new RegExp(palabraalea[i],"gi").length))
         console.log(arrayNumCaracteresP)
       }
       if (!(arrayCaracteresW.includes(word[i]))) {
         arrayCaracteresW.push(word[i])
-        arrayNumCaracteresW.push(word.match(new RegExp(word[i],"gi").length))
+        numWord = arrayNumCaracteresW.push(word.match(new RegExp(word[i],"gi").length))
         for (let u in arrayNumCaracteresP) {
-
+            if (numWord==numPalabraalea) {
+              for (let i in palabraalea){
+                if(palabraalea[i]==word[i]){
+                  document.getElementById("txt"+((wordNumber)*5+(parseInt(i)+1)).toString()).className="TXT2"
+                }
+              }
+              for (let i in palabraalea){
+                if (palabraalea[i]!=word[i]&&palabraalea.includes(word[i])) {
+                  document.getElementById("txt"+((wordNumber)*5+(parseInt(i)+1)).toString()).className="TXT3"
+                } 
+              }
+            }
+            if (numWord<numPalabraalea) {
+              for (let i in palabraalea){
+                if(palabraalea[i]==word[i]){
+                  document.getElementById("txt"+((wordNumber)*5+(parseInt(i)+1)).toString()).className="TXT2"
+                }
+              }
+              for (let i in palabraalea){
+                if (palabraalea[i]!=word[i]&&palabraalea.includes(word[i])) {
+                  document.getElementById("txt"+((wordNumber)*5+(parseInt(i)+1)).toString()).className="TXT3"
+                } 
+              }
+            }
+            if (numWord>numPalabraalea) {
+              for (let l in numPalabraalea) {
+                for (let i in palabraalea){
+                  if(palabraalea[i]==word[i]){
+                    document.getElementById("txt"+((wordNumber)*5+(parseInt(i)+1)).toString()).className="TXT2"
+                  }
+              }
+              for (let i in palabraalea){
+                if (palabraalea[i]!=word[i]&&palabraalea.includes(word[i])) {
+                  document.getElementById("txt"+((wordNumber)*5+(parseInt(i)+1)).toString()).className="TXT3"
+                } 
+              }
+              }
+            }
         }
       }
 
       
   
     }
-    for (let i in palabraalea){
-      if(palabraalea[i]==word[i]){
-        document.getElementById("txt"+((wordNumber)*5+(parseInt(i)+1)).toString()).className="TXT2"
-      }
-    }
-    for (let i in palabraalea){
-      if (palabraalea[i]!=word[i]&&palabraalea.includes(word[i])) {
-        document.getElementById("txt"+((wordNumber)*5+(parseInt(i)+1)).toString()).className="TXT3"
-      } 
-    }
+   
   }
 }
-
-
 
 function ganaste(plb){
   let a=((plb-1)*5)+1;
