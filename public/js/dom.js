@@ -249,8 +249,9 @@ function comprobar(){
 }
 function cerca(word, wordNumber){
   if(word.length==5){
-    let arrayCaracteresW=[]
-    let arrayNumCaracteresW=[]
+
+    let arrayCaracteresWord=[]
+    let arrayNumCaracteresWord=[]
     let arrayCaracteresP=[]
     let arrayNumCaracteresP=[]
     for (let i in palabraalea) {
@@ -259,9 +260,9 @@ function cerca(word, wordNumber){
         numPalabraalea = arrayNumCaracteresP.push(palabraalea.match(new RegExp(palabraalea[i],"gi").length))
         console.log(arrayNumCaracteresP)
       }
-      if (!(arrayCaracteresW.includes(word[i]))) {
-        arrayCaracteresW.push(word[i])
-        numWord = arrayNumCaracteresW.push(word.match(new RegExp(word[i],"gi").length))
+      if (!(arrayCaracteresWord.includes(word[i]))) {
+        arrayCaracteresWord.push(word[i])
+        numWord = arrayNumCaracteresWord.push(word.match(new RegExp(word[i],"gi").length))
         for (let u in arrayNumCaracteresP) {
             if (numWord==numPalabraalea) {
               for (let i in palabraalea){
