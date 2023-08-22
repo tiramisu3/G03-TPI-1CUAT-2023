@@ -281,22 +281,35 @@ function comprobar(){
 }
 function cerca(word, wordNumber){
   if(word.length==5){
-    let ussable=[];
-    for(i in 5){
-      ussable.push(true)
-      console.log(ussable)
+    let arrayCaracteresW=[]
+    let arrayNumCaracteresW=[]
+    let arrayCaracteresP=[]
+    let arrayNumCaracteresP=[]
+    for (let i in palabraalea) {
+      if(!(arrayCaracteresP.includes(palabraalea[i]))){
+        arrayCaracteresP.push(palabraalea[i])
+        arrayNumCaracteresP.push(palabraalea.match(new RegExp(palabraalea[i],"gi").length))
+        console.log(arrayNumCaracteresP)
+      }
+      if (!(arrayCaracteresW.includes(word[i]))) {
+        arrayCaracteresW.push(word[i])
+        arrayNumCaracteresW.push(word.match(new RegExp(word[i],"gi").length))
+        for (let u in arrayNumCaracteresP) {
+
+        }
+      }
+
+      
+  
     }
     for (let i in palabraalea){
       if(palabraalea[i]==word[i]){
-        ussable[i]=false;
         document.getElementById("txt"+((wordNumber)*5+(parseInt(i)+1)).toString()).className="TXT2"
       }
     }
     for (let i in palabraalea){
-      if (ussable[i]==true) {
-        if (palabraalea.includes(word[i])){
-          document.getElementById("txt"+((wordNumber)*5+(parseInt(i)+1)).toString()).className="TXT3"
-        } 
+      if (palabraalea[i]!=word[i]&&palabraalea.includes(word[i])) {
+        document.getElementById("txt"+((wordNumber)*5+(parseInt(i)+1)).toString()).className="TXT3"
       } 
     }
   }
