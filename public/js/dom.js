@@ -546,7 +546,7 @@ function borrarPuntaje(){
   let data = {
     pregunta: usuario
   }
-  eliminarUsuario(data)
+  eliminarPuntaje(data)
 }
 
 async function eliminarPuntaje(data) {
