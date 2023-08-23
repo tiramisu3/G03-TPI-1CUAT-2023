@@ -247,7 +247,89 @@ color: white;
     outline: 0;
 }
 
-#logOut{
-    background-position-x: right;
+
+#volverJugar {
+    display: inline-block;
+    width:120px;
+}
+#wrapper {
+    display: flex;
+    justify-content: center;
+}
+#logOut {
+    display: inline-block;
+    width:120px;
+}
+#logOut2 {
+    float: right;
+    width:60px;
+    margin-right: 1%;
+}
+#adminHeader{
+    margin-left: 13%;
+}
+#mainAdmin3{
+    margin-top: 100px;
+    margin-right: 17.5% ;
+    margin-left: 17.5% ;
+    min-width: 100px;
+    border-radius: 10% ;
+}
+#editarPalabra{
+    margin-top: 10px;
+    background-color: #808080; 
+    border-color: #1a1a1a;
+    color:#1a1a1a;
+
 }
 
+#mainTabla1 {
+    margin-top: 100px;
+    margin-left: 25%;
+    min-width: 100px;
+    border-radius: 10% ;
+}
+#mainTabla2 {
+    margin-top: 100px;
+    margin-right: 20% ;
+    min-width: 100px;
+    border-radius: 10% ;
+}
+#Tabla {
+    text-align: justify;
+    display: block;
+    padding: 14px 32px;
+
+}
+#Felicidades {
+    text-align: justify;
+    display: block;
+    padding: 14px 32px;
+
+}
+#puntaje{
+    font-size: 16px;
+}
+
+#puntosTh{
+    padding: 0 25px;
+}
+#puntos{
+    padding: 0 25px;
+}
+
+#again {
+    float: right;
+    margin-right: 1%;
+}
+
+#tablaHeader{
+    margin-left: 13%;
+}
+
+#botonEliminarPuntaje {
+    margin-top: 10px;
+    background-color: #808080; 
+    border-color: #1a1a1a;
+    color:#1a1a1a;
+}

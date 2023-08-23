@@ -49,6 +49,46 @@ function login() {
   entrar(data)
 }
 
+function nuevoUsuario(){
+
+  let correo = document.getElementById("mailId").value
+  let usuario = document.getElementById("usuarioId").value
+  let contraseña = document.getElementById("passwordId").value
+
+  let data = {
+    mail: correo,
+    user: usuario,
+    pass: contraseña
+  }
+    registrarse(data)
+
+}
+
+async function registrarse(data){
+    try {
+    const response = await fetch("/nuevoUsuario", {
+      method: "POST", // or 'POST'
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    
+    //En result obtengo la respuesta
+    const result = await response.json();
+    console.log("Success:", result);
+    if (result.validar == false) {
+      alert("El usuario no se puede crear")
+    }
+    else{
+      console.log("Usuario creado con exito")
+    }
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
+
+
 async function mostrar() {
   try {
     const response = await fetch("/Admin", {
@@ -79,6 +119,7 @@ async function mostrar() {
     }
     html += `</select>`;
     document.getElementById("seleccion").innerHTML = html;
+
     let html2 = `
         <select name="select" id="user">
           <option value="value1" selected> Elegir Usuario</option>`
@@ -89,20 +130,28 @@ async function mostrar() {
         
       `;
     }
-    html += `</select>`;
-    document.getElementById("seleccionUsuario").innerHTML = html2;
+    html2 += `</select>`;
+    document.getElementById("seleccionUsuario2").innerHTML = html2;
     
+    let html3 = `
+        <select name="select" id="wordEdit">
+          <option value="value1" selected> Elegir Palabra</option>`
+    for (let i in vector){
+      html3+=
+      `
+          <option>${vector[i].palabras}</option>
+        
+      `;
+    }
+    html3 += `</select>`;
+    document.getElementById("seleccion2").innerHTML = html3;
+
   }
     catch (error) {
       console.error("Error:", error);
     
   }
 }
-
-async function borrar(){
-  
-}
-
 
 let palabraalea={}
 
@@ -172,32 +221,38 @@ function comprobar(){
       puntaje += 100
       intentos +=1
       ganaste(1)
+      puntos(puntaje)
       intentos=6;
     }else if(palabraalea == word2){
       puntaje += 80
       intentos +=1
       ganaste(2)
+      puntos(puntaje)
       intentos=6;
     }else if (palabraalea == word3){
       puntaje += 60
       intentos +=1
       ganaste(3)
+      puntos(puntaje)
       intentos=6;
     }else if(palabraalea == word4){
       puntaje += 40
       intentos +=1
       ganaste(4)
+      puntos(puntaje)
       intentos=6;
     }else if(palabraalea == word5){
       puntaje += 20
       intentos +=1
       ganaste(5)
+      puntos(puntaje)
     }else{
       intentos += 1
       if (intentos == 5){
         perdiste()
       }
     }
+
     cerca(words[intentos-1], intentos-1)
     let a=((intentos-1)*5)+1;
     let b=intentos*5;
@@ -313,8 +368,13 @@ function ganaste(plb){
         <div class="modal-body">
           <p>FELICITACIONES</p>
           <p>Lo lograste en: ${intentos} intentos</p>
-          <p>Tu puntaje es de: ${puntaje} puntos</p>
+          <form action='/recargarTablas' method="POST" class="container-sm">
+            <div class="mb-3 form-check">
+                <input type="submit" class="btn btn-primary" id="irATablas" disabled value="Ingresar a las tablas">
+            </div>
+          </form>
         </div>
+        
         </div>
       </div>
     </div>
@@ -428,7 +488,7 @@ eliminarUsuario(data)
 
 async function eliminarUsuario(data) {
   //putJSON() es solo el nombre de esta funcion que lo pueden cambiar    
-
+  console.log(data)
   try {
     const response = await fetch("/eliminarUsuario", {
       method: "PUT", // or 'POST'
@@ -461,5 +521,126 @@ function volverJugar(){
 
 function salir(){
   location.href = '/volver'
+
+}
+
+function editar(){
+  palabraBorrar = document.getElementById("wordEdit").value
+  console.log(palabraBorrar)
+  palabraNueva = document.getElementById("cambiarPalabra").value
+  console.log(palabraNueva)
+
+
+  let data = {
+    borrar: palabraBorrar,
+    agregar: palabraNueva
+  }
+  editarPalabra(data)
+}
+
+async function editarPalabra(data) {
+  //putJSON() es solo el nombre de esta funcion que lo pueden cambiar    
+
+  try {
+    const response = await fetch("/cambiarPalabra", {
+      method: "PUT", // or 'POST'
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    const result = await response.json();
+    console.log("editar ok ", result);
+
+    if (result.validar == false) {
+      alert("No se pudo borrar la palabra")
+    }
+    else {
+     console.log("palabra borrada")
+     location.href = '/Admin'
+  } 
+}
+  catch (error) {
+    console.error("Error:", error);
+  }
+
+}
+
+function puntos(puntaje){
+    sumar= puntaje;
+    console.log(sumar)
+    let data = {
+      masPuntaje: sumar
+    }
+    console.log(data.masPuntaje)
+  puntosUsuario(data)
+}
+
+async function puntosUsuario(data){
+  console.log(data.masPuntaje)
+
+  try {
+    const response = await fetch("/agregarPuntos", {
+      method: "PUT", // or 'POST'
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    const result = await response.json();
+    console.log("sumar ok ", result);
+    if (result.validar == false) {
+      alert("Error")
+    }
+    else {
+     console.log("Exito")
+     document.getElementById("irATablas").disabled = false
+     
+    } 
+  }
+  catch (error) {
+    console.error("Error:", error);
+  }
+}
+
+function jugar(){
+  location.href = '/jugardenuevo'
+
+}
+
+function borrarPuntaje(){
+  usuario= document.getElementById("user").value
+  console.log(usuario)
+  let data = {
+    pregunta: usuario
+  }
+  eliminarPuntaje(data)
+}
+
+async function eliminarPuntaje(data) {
+  //putJSON() es solo el nombre de esta funcion que lo pueden cambiar    
+  console.log(data)
+  try {
+    const response = await fetch("/eliminarPuntaje", {
+      method: "PUT", // or 'POST'
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    const result = await response.json();
+    console.log("borrar ok ", result);
+
+    if (result.validar == false) {
+      alert("No se pudo borrar el puntaje")
+    }
+    else {
+     console.log("Puntaje borrado")
+     location.href = '/Admin'
+  } 
+}
+  catch (error) {
+    console.error("Error:", error);
+  }
 
 }

@@ -53,7 +53,7 @@ app.get('/', function(req, res)
     res.render('login', null); //Renderizo página "home" sin pasar ningún objeto a Handlebars
 });
 
-
+mailLogueado= ""
 
 
 app.post('/login', async function(req, res)
@@ -98,9 +98,11 @@ app.put('/login', async function(req, res) {
     //Petición PUT con URL = "/login"
     console.log("Soy un pedido PUT", req.body); //En req.body vamos a obtener el objeto con los parámetros enviados desde el frontend por método PUT
     let respuesta= await MySQL.realizarQuery(` SELECT * FROM Usuarios WHERE nom_usuario= "${req.body.user}" AND contraseña = "${req.body.pass}"`)
-
     if (respuesta.length > 0) {
-        res.send({validar: true, esadmin:respuesta[0].esadmin})    
+        res.send({validar: true, esadmin:respuesta[0].esadmin})
+        mailLogueado = respuesta[0].mail
+        console.log(mailLogueado)
+    
     }
     else{
         res.send({validar:false})    
@@ -111,7 +113,7 @@ app.put('/Admin', async function(req, res) {
     //Petición PUT con URL = "/login"
     console.log("Soy un pedido PUT", req.body); //En req.body vamos a obtener el objeto con los parámetros enviados desde el frontend por método PUT
     let vector = [await MySQL.realizarQuery(` SELECT * FROM Palabras `)]
-    let vector2 = [await MySQL.realizarQuery(` SELECT nom_usuario FROM Usuarios `)]
+    let vector2 = [await MySQL.realizarQuery(` SELECT * FROM Usuarios `)]
     console.log(vector)
     console.log(vector2)
     if (vector.length > 0) {
@@ -129,19 +131,21 @@ app.get('/registrarse', function(req, res){
     //En req.query vamos a obtener el objeto con los parámetros enviados desde el frontend por método GET
     res.render('Registro', null); //Renderizo página "home" sin pasar ningún objeto a Handlebars
 });
-app.post('/nuevousuario', async function(req, res)
+app.post('/nuevoUsuario', async function(req, res)
 {
     let validar = true
     //Petición POST con URL = "/login"
     console.log("Soy un pedido POST", req.body); 
     let users= await MySQL.realizarQuery("SELECT * FROM Usuarios")
     for (let i in users){
-        if (req.body.nom_usuario == users[i].nom_usuario){
+        if (req.body.mail == users[i].mail){
             validar = false
         }
     }
     if (validar==true) {
-        await MySQL.realizarQuery (`INSERT INTO Usuarios VALUES("${req.body.mail}", "${req.body.nom_usuario}", "${req.body.contraseña}",${false})`)    
+        await MySQL.realizarQuery (`INSERT INTO Usuarios VALUES("${req.body.mail}", "${req.body.nom_usuario}", "${req.body.contraseña}",${false},${0})`) 
+        mailLogueado = req.body.mail
+        console.log(mailLogueado)   
         res.render('home', { mensaje: "Hola mundo!", usuario: req.body.nom_usuario}); //Renderizo página "home" enviando un objeto de 2 parámetros a Handlebars
     }
     else if (validar==false){
@@ -171,7 +175,7 @@ app.put('/eliminar', async function(req, res){
 
     let validar = true
     //Petición POST con URL = "/login"
-    console.log("Soy un pedido POST", req.body); 
+    console.log("Soy un pedido PUT", req.body); 
     let palabras= await MySQL.realizarQuery("SELECT * FROM Palabras")
     let entre = false
     console.log(req.body.pregunta)
@@ -213,7 +217,6 @@ app.put('/agregar', async function(req, res){
 app.put('/eliminarUsuario', async function(req, res){
 
     let validar = true
-    //Petición POST con URL = "/login"
     console.log("Soy un pedido PUT", req.body); 
     let usuarios= await MySQL.realizarQuery("SELECT * FROM Usuarios")
     let entre = false
@@ -223,6 +226,33 @@ app.put('/eliminarUsuario', async function(req, res){
             entre = true
             respuesta = await MySQL.realizarQuery(`DELETE FROM Usuarios WHERE nom_usuario = "${req.body.pregunta}";`)
 
+            res.send({validar: true})    
+            
+            
+        }
+    }
+    if (entre == false) {
+        res.send({validar:false})    
+    }
+    
+});
+
+app.put('/eliminarPuntaje', async function(req, res){
+
+    let validar = true
+    console.log("Soy un pedido PUT", req.body); 
+    let usuarios= await MySQL.realizarQuery("SELECT * FROM Usuarios")
+    let entre = false
+    console.log(req.body.pregunta)
+    console.log("hi")
+    for (let i in usuarios){
+        console.log("hola") 
+        if (usuarios[i].nom_usuario == req.body.pregunta){
+            console.log("hola2")
+            entre = true
+            respuesta = await MySQL.realizarQuery(`UPDATE Usuarios SET puntaje = ${0} WHERE nom_usuario="${req.body.pregunta}";`);
+            let usuario = await MySQL.realizarQuery(`SELECT * FROM Usuarios WHERE mail = "${req.body.pregunta}"`)// traer el puntajer del usuario logeado
+            console.log(usuario)
             res.send({validar: true})    
             
             
@@ -245,5 +275,80 @@ app.get('/volver', function(req, res) {
     //Petición DELETE con URL = "/login"
     console.log("Soy un pedido GET", req.body); //En req.body vamos a obtener el objeto con los parámetros enviados desde el frontend por método DELETE
     res.render('login', null)
+    ;
+});
+
+app.get('/jugardenuevo', function(req, res) {
+    //Petición DELETE con URL = "/login"
+    console.log("Soy un pedido GET", req.body); //En req.body vamos a obtener el objeto con los parámetros enviados desde el frontend por método DELETE
+    res.render('home', null)
+    ;
+});
+
+app.put('/cambiarPalabra', async function(req, res) {
+    console.log("Soy un pedido PUT", req.body);
+    let validar = true
+    let palabras= await MySQL.realizarQuery("SELECT * FROM Palabras")
+    let entre = false
+    console.log(req.body.borrar)
+    for (let i in palabras){
+        if (palabras[i].palabras == req.body.borrar){
+            entre = true
+            respuesta = await MySQL.realizarQuery(`DELETE FROM Palabras WHERE palabras = "${req.body.borrar}";`)
+            for (let i in palabras){
+                if (palabras[i].palabras == req.body.agregar){
+                    validar = false
+                    res.send({validar: false});
+                }
+               
+            }
+            if (validar == true){
+                sumar = await MySQL.realizarQuery (`INSERT INTO Palabras VALUES("${req.body.agregar}")`)    
+                
+                res.send({validar: true});
+        
+            }
+                
+            
+            
+        }
+    }
+    if (entre == false) {
+        res.send({validar:false})    
+    }
+    
+
+});
+
+app.post('/tabla', async function(req, res){
+    //Petición GET con URL = "/login"
+    console.log("Soy un pedido POST", req.query); 
+    let usuarios= await MySQL.realizarQuery("SELECT * FROM Usuarios")
+    //En req.query vamos a obtener el objeto con los parámetros enviados desde el frontend por método GET
+    res.render('Tablas', {usuario:usuarios});
+});
+
+app.put('/agregarPuntos', async function(req, res){
+    console.log("Soy un pedido PUT /agregarPuntos", req.query);
+    validar = true
+    console.log(mailLogueado)
+    let usuario = await MySQL.realizarQuery(`SELECT * FROM Usuarios WHERE mail = "${mailLogueado}"`)// traer el puntajer del usuario logeado
+    console.log(usuario[0].puntaje)
+    usuario[0].puntaje = usuario[0].puntaje + req.body.masPuntaje 
+    console.log(usuario[0])
+    console.log(usuario[0].puntaje)
+    añadirPuntos = await MySQL.realizarQuery(`UPDATE Usuarios SET puntaje = ${usuario[0].puntaje} WHERE mail="${mailLogueado}";`);
+    let usuarios = await MySQL.realizarQuery(`SELECT * FROM Usuarios WHERE mail = "${mailLogueado}"`)// traer el puntajer del usuario logeado
+    console.log(usuarios)
+    res.send({validar: true});
+        
+    
+});
+
+app.post('/recargarTablas', async function(req, res) {
+    //Petición DELETE con URL = "/login"
+    let usuarios= await MySQL.realizarQuery("SELECT * FROM Usuarios")
+    console.log("Soy un pedido GET", req.body); //En req.body vamos a obtener el objeto con los parámetros enviados desde el frontend por método DELETE
+    res.render('Tablas', {usuario:usuarios})
     ;
 });

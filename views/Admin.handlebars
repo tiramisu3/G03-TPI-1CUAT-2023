@@ -1,17 +1,16 @@
 <br>
-<center><header><h1>Administrador</h1></header></center>
-<right>
-    <div class="mb-3 form-check">
-            <center><input type="submit" class="btn btn-primary" value="Salir" onclick="salir()"></center>
+    <div class="mb-3 form-check" div="admin">
+        <input type="submit" class="btn btn-secondary" value="Salir" onclick="salir()" id="logOut2">
+        <center><header id="adminHeader"><h1>Administrador</h1></header></center>
     </div>
-</right>
+
 <body id="bodyAdmin">
     <div class="row">
         <div class="col-sm-6 mb-3 mb-sm-0">
             <main id="mainAdmin1" class="card" >
                 
                 <div id="elegirpalabra" method="POST">
-                    <h3>Editar palabras</h3>
+                    <h3>Borrar palabras</h3>
                         <div id="seleccion">
                             <select name="select" id="elegirPalabra">
                                 <option value="value1" selected> Elegir Palabra</option>
@@ -36,9 +35,7 @@
                     <div>
                     </div>
                 </div>
-                <script>
-                    mostrar();
-                </script>
+                
             </main>
         </div>
         <div class="col-sm-6">
@@ -46,8 +43,8 @@
                 
                     
                     <div id="elegirpalabra" method="POST">
-                        <h3>Usuarios</h3>
-                            <div id="seleccionUsuario">
+                        <h3>Usuarios y Puntos</h3>
+                            <div id="seleccionUsuario2">
                                 <select name="select" id="elegirPalabra">
                                     <option value="value1" selected> Elegir Usuario</option>
                                     <option value="value2"> </option>
@@ -56,13 +53,38 @@
                         <div>
                             <input type="submit" class="btn btn-primary" id = "botonEliminar" value="Eliminar" onclick="borrarUsuario()">
                         </div>
-                </main>
+                        <br>
+                        <br>
+                        <div>
+                            <input type="submit" class="btn btn-primary" id = "botonEliminarPuntaje" value="Eliminar Puntaje" onclick="borrarPuntaje()">
+                        </div>
             </main>
         </div>
     </div>
-
+    <main id="mainAdmin3" class="card" >
+        <div class="col-sm-6 mb-3 mb-sm-0">
+            <div id="elegirpalabra" method="POST">
+                <h3>Editar palabras</h3>
+                    <div id="seleccion2">
+                        <select name="select" id="elegirPalabra">
+                            <option value="value1" selected> Elegir Palabra</option>
+                            <option value="value2"> </option>
+                        </select>
+                    </div>
+                    <br>
+                <div>
+                    <input type="text" class="form-control" id="cambiarPalabra" name="cambio" value="" placeholder="Ingrese la palabra">
+                    <input type="submit" class="btn btn-primary" id = "editarPalabra" value="Editar" onclick="editar()">
+                </div>
+            </div>
+        </div>  
+    </main>
 </body>
-<footer id="footer1">
+<script>
+    mostrar();
+</script>
+<br>
+<footer id="footer2">
     <h6>Colegio Pio IX</h6>
     <p>Primer proyecto Interdisciplinario - Grupo 3 - Amiano, Basile, Feroce, Rosenthal, Pico</p>
 </footer>
