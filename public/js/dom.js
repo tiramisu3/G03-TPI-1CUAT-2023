@@ -248,10 +248,11 @@ function comprobar(){
 function cerca(word, wordNumber){
   let cantLetras=[]
   let letras=[]
-  for (i in word){
-    if(!letras.includes(word[i])){
-    letras.push(palabraalea[i])
-    cantLetras.push(palabraalea.match(new RegExp(palabraalea[i],"gi")).length)
+  for (i in palabraalea){
+    if(!letras.includes(palabraalea[i])){
+      letras.push(palabraalea[i])
+      cantLetras.push(palabraalea.match(new RegExp(palabraalea[i],"gi")).length)
+      console.log(4)
     }
   }console.log(letras, cantLetras)
   
@@ -271,81 +272,23 @@ function cerca(word, wordNumber){
           if (letras[x] == word[i]) {
             if (palabraalea[i]!=word[i]&&palabraalea.includes(word[i])&&cantLetras[x]>0 ) { 
               document.getElementById("txt"+((wordNumber)*5+(parseInt(i)+1)).toString()).className="TXT3"
-
               cantLetras[x]-=1
             }
           
           }
-      } 
+      } console.log(cantLetras)
     } console.log(letras, cantLetras)
-   
-/*  if(word.length==5){
-
-    let arrayCaracteresWord=[]
-    let arrayNumCaracteresWord=[]
-    let arrayCaracteresP=[]
-    let arrayNumCaracteresP=[]
-    for (let i in palabraalea) {
-      if(!(arrayCaracteresP.includes(palabraalea[i]))){
-        arrayCaracteresP.push(palabraalea[i])
-        numPalabraalea = arrayNumCaracteresP.push(palabraalea.match(new RegExp(palabraalea[i],"gi").length))
-        console.log(arrayNumCaracteresP)
-      }
-      if (!(arrayCaracteresWord.includes(word[i]))) {
-        arrayCaracteresWord.push(word[i])
-        numWord = arrayNumCaracteresWord.push(word.match(new RegExp(word[i],"gi").length))
-        for (let u in arrayNumCaracteresP) {
-            if (numWord==numPalabraalea) {
-              for (let i in palabraalea){
-                if(palabraalea[i]==word[i]){
-                  document.getElementById("txt"+((wordNumber)*5+(parseInt(i)+1)).toString()).className="TXT2"
-                }
-              }
-              for (let i in palabraalea){
-                if (palabraalea[i]!=word[i]&&palabraalea.includes(word[i])) {
-                  document.getElementById("txt"+((wordNumber)*5+(parseInt(i)+1)).toString()).className="TXT3"
-                } 
-              }
-            }
-            if (numWord<numPalabraalea) {
-              for (let i in palabraalea){
-                if(palabraalea[i]==word[i]){
-                  document.getElementById("txt"+((wordNumber)*5+(parseInt(i)+1)).toString()).className="TXT2"
-                }
-              }
-              for (let i in palabraalea){
-                if (palabraalea[i]!=word[i]&&palabraalea.includes(word[i])) {
-                  document.getElementById("txt"+((wordNumber)*5+(parseInt(i)+1)).toString()).className="TXT3"
-                } 
-              }
-            }
-            if (numWord>numPalabraalea) {
-              console.log(numPalabraalea)
-              for (let l in numPalabraalea)  {
-                if (cant!=numPalabraalea) {
-                  for (let i in palabraalea){
-                    if(palabraalea[i]==word[i]){
-                      cant+=1
-                      document.getElementById("txt"+((wordNumber)*5+(parseInt(i)+1)).toString()).className="TXT2"
-                    }
-                    if (palabraalea[i]!=word[i]&&palabraalea.includes(word[i])) {
-                        cant+=1
-                        document.getElementById("txt"+((wordNumber)*5+(parseInt(i)+1)).toString()).className="TXT3"
-                      } 
-                  }
-                }
-              }
-                
-            }
-        }
-      }
-
-      
-  
-    }
-   
-  }*/
 }
+let txtParaEvento=0
+function evento(){
+  txtParaEvento+=1;
+  console.log("txt"+(txtParaEvento+1).toString())
+  document.getElementById("txt"+(txtParaEvento+1).toString()).focus()
+  if(txtParaEvento==25){
+    txtParaEvento=0
+  }
+}
+
 
 function ganaste(plb){
   let a=((plb-1)*5)+1;
