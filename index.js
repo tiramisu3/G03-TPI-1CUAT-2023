@@ -137,19 +137,25 @@ app.post('/nuevoUsuario', async function(req, res)
     //Petición POST con URL = "/login"
     console.log("Soy un pedido POST", req.body); 
     let users= await MySQL.realizarQuery("SELECT * FROM Usuarios")
+    if (req.body.mail.length == 0 || req.body.user.length == 0 || req.body.pass.length == 0 ){
+        validar = false 
+    }
     for (let i in users){
         if (req.body.mail == users[i].mail){
+            console.log("falso")
             validar = false
         }
     }
     if (validar==true) {
-        await MySQL.realizarQuery (`INSERT INTO Usuarios VALUES("${req.body.mail}", "${req.body.nom_usuario}", "${req.body.contraseña}",${false},${0})`) 
+        await MySQL.realizarQuery (`INSERT INTO Usuarios VALUES("${req.body.mail}", "${req.body.user}", "${req.body.pass}",${false},${0})`) 
         mailLogueado = req.body.mail
         console.log(mailLogueado)   
-        res.render('home', { mensaje: "Hola mundo!", usuario: req.body.nom_usuario}); //Renderizo página "home" enviando un objeto de 2 parámetros a Handlebars
+        console.log("verdadero")
+        res.send({validar:true}); //Renderizo página "home" enviando un objeto de 2 parámetros a Handlebars
     }
     else if (validar==false){
-        res.render("Registro",{mensaje: "Usuario ya existente"})
+        console.log("falso2")
+        res.send({validar:false})
     }
     
     //En req.body vamos a obtener el objeto con los parámetros enviados desde el frontend por método POST
