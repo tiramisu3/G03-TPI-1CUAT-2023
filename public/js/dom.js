@@ -49,6 +49,46 @@ function login() {
   entrar(data)
 }
 
+function nuevoUsuario(){
+
+  let correo = document.getElementById("mailId").value
+  let usuario = document.getElementById("usuarioId").value
+  let contraseña = document.getElementById("passwordId").value
+
+  let data = {
+    mail: correo,
+    user: usuario,
+    pass: contraseña
+  }
+    registrarse(data)
+
+}
+
+async function registrarse(data){
+    try {
+    const response = await fetch("/nuevoUsuario", {
+      method: "POST", // or 'POST'
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    
+    //En result obtengo la respuesta
+    const result = await response.json();
+    console.log("Success:", result);
+    if (result.validar == false) {
+      alert("El usuario no se puede crear")
+    }
+    else{
+      console.log("Usuario creado con exito")
+    }
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
+
+
 async function mostrar() {
   try {
     const response = await fetch("/Admin", {
@@ -301,9 +341,9 @@ function ganaste(plb){
         <div class="modal-body">
           <p>FELICITACIONES</p>
           <p>Lo lograste en: ${intentos} intentos</p>
-          <form action='/tabla' method="POST" class="container-sm">
+          <form action='/recargarTablas' method="POST" class="container-sm">
             <div class="mb-3 form-check">
-                <input type="submit" class="btn btn-primary" value="Ingresar a las tablas">
+                <input type="submit" class="btn btn-primary" id="irATablas" disabled value="Ingresar a las tablas">
             </div>
           </form>
         </div>
@@ -527,6 +567,7 @@ async function puntosUsuario(data){
     }
     else {
      console.log("Exito")
+     document.getElementById("irATablas").disabled = false
      
     } 
   }
