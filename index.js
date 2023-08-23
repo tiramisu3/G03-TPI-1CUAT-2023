@@ -144,7 +144,7 @@ app.post('/nuevousuario', async function(req, res)
         }
     }
     if (validar==true) {
-        await MySQL.realizarQuery (`INSERT INTO Usuarios VALUES("${req.body.mail}", "${req.body.nom_usuario}", "${req.body.contraseña}",${false},"${0}")`) 
+        await MySQL.realizarQuery (`INSERT INTO Usuarios VALUES("${req.body.mail}", "${req.body.nom_usuario}", "${req.body.contraseña}",${false},${0})`) 
         mailLogueado = req.body.mail
         console.log(mailLogueado)   
         res.render('home', { mensaje: "Hola mundo!", usuario: req.body.nom_usuario}); //Renderizo página "home" enviando un objeto de 2 parámetros a Handlebars
@@ -247,12 +247,13 @@ app.put('/eliminarPuntaje', async function(req, res){
     console.log(req.body.pregunta)
     console.log("hi")
     for (let i in usuarios){
-        console.log("hola")
+        console.log("hola") 
         if (usuarios[i].nom_usuario == req.body.pregunta){
             console.log("hola2")
             entre = true
-            respuesta = await MySQL.realizarQuery(`UPDATE Usuarios SET puntaje = 0 WHERE mail="${mailLogueado}";`);
-
+            respuesta = await MySQL.realizarQuery(`UPDATE Usuarios SET puntaje = ${0} WHERE nom_usuario="${req.body.pregunta}";`);
+            let usuario = await MySQL.realizarQuery(`SELECT * FROM Usuarios WHERE mail = "${req.body.pregunta}"`)// traer el puntajer del usuario logeado
+            console.log(usuario)
             res.send({validar: true})    
             
             
