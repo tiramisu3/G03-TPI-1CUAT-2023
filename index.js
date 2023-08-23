@@ -98,7 +98,6 @@ app.put('/login', async function(req, res) {
     //Petición PUT con URL = "/login"
     console.log("Soy un pedido PUT", req.body); //En req.body vamos a obtener el objeto con los parámetros enviados desde el frontend por método PUT
     let respuesta= await MySQL.realizarQuery(` SELECT * FROM Usuarios WHERE nom_usuario= "${req.body.user}" AND contraseña = "${req.body.pass}"`)
-    console.log(respuesta[0].mail)
     if (respuesta.length > 0) {
         res.send({validar: true, esadmin:respuesta[0].esadmin})
         mailLogueado = respuesta[0].mail
@@ -132,14 +131,14 @@ app.get('/registrarse', function(req, res){
     //En req.query vamos a obtener el objeto con los parámetros enviados desde el frontend por método GET
     res.render('Registro', null); //Renderizo página "home" sin pasar ningún objeto a Handlebars
 });
-app.post('/nuevousuario', async function(req, res)
+app.post('/nuevoUsuario', async function(req, res)
 {
     let validar = true
     //Petición POST con URL = "/login"
     console.log("Soy un pedido POST", req.body); 
     let users= await MySQL.realizarQuery("SELECT * FROM Usuarios")
     for (let i in users){
-        if (req.body.nom_usuario == users[i].nom_usuario){
+        if (req.body.mail == users[i].mail){
             validar = false
         }
     }
@@ -326,7 +325,7 @@ app.post('/tabla', async function(req, res){
     console.log("Soy un pedido POST", req.query); 
     let usuarios= await MySQL.realizarQuery("SELECT * FROM Usuarios")
     //En req.query vamos a obtener el objeto con los parámetros enviados desde el frontend por método GET
-    res.render('Tablas', {usuario:usuarios}); //Renderizo página "home" sin pasar ningún objeto a Handlebars
+    res.render('Tablas', {usuario:usuarios});
 });
 
 app.put('/agregarPuntos', async function(req, res){
@@ -346,7 +345,7 @@ app.put('/agregarPuntos', async function(req, res){
     
 });
 
-app.get('/recargarTabla', async function(req, res) {
+app.post('/recargarTablas', async function(req, res) {
     //Petición DELETE con URL = "/login"
     let usuarios= await MySQL.realizarQuery("SELECT * FROM Usuarios")
     console.log("Soy un pedido GET", req.body); //En req.body vamos a obtener el objeto con los parámetros enviados desde el frontend por método DELETE
