@@ -301,7 +301,7 @@ function ganaste(plb){
         <div class="modal-body">
           <p>FELICITACIONES</p>
           <p>Lo lograste en: ${intentos} intentos</p>
-          <form action="/tabla" method="POST" class="container-sm">
+          <form action='/tabla' method="POST" class="container-sm">
             <div class="mb-3 form-check">
                 <input type="submit" class="btn btn-primary" value="Ingresar a las tablas">
             </div>
@@ -527,7 +527,7 @@ async function puntosUsuario(data){
     }
     else {
      console.log("Exito")
-     location.href = '/recargarTabla'
+     
     } 
   }
   catch (error) {
