@@ -289,18 +289,22 @@ function cerca(word, wordNumber){
               }
             }
             if (numWord>numPalabraalea) {
-              for (let l in numPalabraalea) {
-                for (let i in palabraalea){
-                  if(palabraalea[i]==word[i]){
-                    document.getElementById("txt"+((wordNumber)*5+(parseInt(i)+1)).toString()).className="TXT2"
+              console.log(numPalabraalea)
+              for (let l in numPalabraalea)  {
+                if (cant!=numPalabraalea) {
+                  for (let i in palabraalea){
+                    if(palabraalea[i]==word[i]){
+                      cant+=1
+                      document.getElementById("txt"+((wordNumber)*5+(parseInt(i)+1)).toString()).className="TXT2"
+                    }
+                    if (palabraalea[i]!=word[i]&&palabraalea.includes(word[i])) {
+                        cant+=1
+                        document.getElementById("txt"+((wordNumber)*5+(parseInt(i)+1)).toString()).className="TXT3"
+                      } 
                   }
+                }
               }
-              for (let i in palabraalea){
-                if (palabraalea[i]!=word[i]&&palabraalea.includes(word[i])) {
-                  document.getElementById("txt"+((wordNumber)*5+(parseInt(i)+1)).toString()).className="TXT3"
-                } 
-              }
-              }
+                
             }
         }
       }
