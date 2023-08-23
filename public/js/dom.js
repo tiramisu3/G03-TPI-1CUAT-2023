@@ -198,10 +198,8 @@ function comprobar(){
         perdiste()
       }
     }
-    for(let i in words){
-      cerca(words[i], i)
-    }
-    let a=((intentos-1)*5)+1;//seguircon esto
+    cerca(words[intentos-1], intentos-1)
+    let a=((intentos-1)*5)+1;
     let b=intentos*5;
       if (intentos == 1){
         var dis2 =document.getElementById("palb2").getElementsByTagName('input');
@@ -248,7 +246,40 @@ function comprobar(){
     
 }
 function cerca(word, wordNumber){
-  if(word.length==5){
+  let cantLetras=[]
+  let letras=[]
+  for (i in word){
+    if(!letras.includes(word[i])){
+    letras.push(palabraalea[i])
+    cantLetras.push(palabraalea.match(new RegExp(palabraalea[i],"gi")).length)
+    }
+  }console.log(letras, cantLetras)
+  
+    for (i in word){
+      if(word[i]==palabraalea[i]){
+       document.getElementById("txt"+((wordNumber)*5+(parseInt(i)+1)).toString()).className="TXT2"
+       for(x in letras){
+        if (letras[x] == word[i]) {
+          cantLetras[x]-=1
+        }
+        
+        }
+      }
+    }
+    for(i in word){
+        for(x in letras){
+          if (letras[x] == word[i]) {
+            if (palabraalea[i]!=word[i]&&palabraalea.includes(word[i])&&cantLetras[x]>0 ) { 
+              document.getElementById("txt"+((wordNumber)*5+(parseInt(i)+1)).toString()).className="TXT3"
+
+              cantLetras[x]-=1
+            }
+          
+          }
+      } 
+    } console.log(letras, cantLetras)
+   
+/*  if(word.length==5){
 
     let arrayCaracteresWord=[]
     let arrayNumCaracteresWord=[]
@@ -313,7 +344,7 @@ function cerca(word, wordNumber){
   
     }
    
-  }
+  }*/
 }
 
 function ganaste(plb){
