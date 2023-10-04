@@ -209,8 +209,7 @@ app.put('/agregar', async function(req, res){
         if (palabras[i].palabras == req.body.pregunta){
             validar = false
             res.send({validar: false});
-        }
-       
+        } 
     }
     if (validar == true){
         sumar = await MySQL.realizarQuery (`INSERT INTO Palabras VALUES("${req.body.pregunta}")`)    
